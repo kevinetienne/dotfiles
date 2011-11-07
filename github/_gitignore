@@ -1,0 +1,7 @@
+#python specific
+*.pyc
+
+#vim files
+*.sw[p|o]
+
+## generic files to ignore
