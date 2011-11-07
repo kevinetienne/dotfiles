@@ -1,0 +1,25 @@
+[paths]
+default = https://user@bitbucket.org/user/repo
+diff = --unified 8
+
+[alias]
+; to install mercurial-cli-templates
+; hg clone https://bitbucket.org/sjl/mercurial-cli-templates
+slog = log --style=/Users/kev/Programming/python/repo/mercurial-cli-templates/map-cmdline.slog
+sglog = log --style=/Users/kev/Programming/python/repo/mercurial-cli-templates/map-cmdline.sglog
+nlog = log --style=/Users/kev/Programming/python/repo/mercurial-cli-templates/map-cmdline.nlog
+dlog = log --style=/Users/kev/Programming/python/repo/mercurial-cli-templates/map-cmdline.dlog
+
+[extensions]
+hgext.graphlog =
+hgext.fetch =
+hgext.color =
+
+[merge-patterns]
+** = filemerge
+
+[merge-tools]
+filemerge.executable = vim
+filemerge.args = -d $local $other
+filemerge.checkchanged = true
+filemerge.gui = true
