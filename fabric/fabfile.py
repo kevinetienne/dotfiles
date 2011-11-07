@@ -16,6 +16,10 @@ env.hosts = ['user@host']
 env.directory = '/path/to/website'
 env.activate = ". /usr/local/pythonenv/project/bin/activate"
 env.user = "user owner"
+# log
+logdir = "/var/log/apache2/"
+logfile = "access.project.log"
+env.log = "%s%s" % (logdir, logfile)
 
 def virtualenv():
     with cd(env.directory):
@@ -41,4 +45,8 @@ def revert_all():
     with cd(env.directory):
         run("hg revert --all")
     reboot_gracefully()
+
+def get_log():
+    "tail log reading"
+    sudo("tail -f %s " % env.log)
 
