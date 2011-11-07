@@ -48,5 +48,5 @@ def revert_all():
 
 def get_log():
     "tail log reading"
-    sudo("tail -f %s " % env.log)
+    sudo("tail -f %s| perl -pe \"s/^(?<ip>(\d+\.){3}\d+)(?<subgroup>.+)(?<method>POST|GET|PUT|DELETE|OPTIONS|TRACE|CONNECT)/\e[1;21;41m$+{ip}\e[0m$+{subgroup}\e[1;21;41m$+{method}\e[0m /g\"" % env.log)
 
