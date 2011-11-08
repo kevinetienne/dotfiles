@@ -14,6 +14,7 @@ dlog = log --style=/Users/kev/Programming/python/repo/mercurial-cli-templates/ma
 hgext.graphlog =
 hgext.fetch =
 hgext.color =
+hgext.purge =
 
 [merge-patterns]
 ** = filemerge
