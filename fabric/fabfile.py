@@ -5,7 +5,7 @@ Example:
     fab deploy
 """
 
-from fabric.api import run, cd, sudo, env
+from fabric.api import run, cd, sudo, env, local
 
 # uid not found
 # see https://github.com/fabric/fabric/issues/400
@@ -50,3 +50,5 @@ def get_log():
     "tail log reading"
     sudo("tail -f %s| perl -pe \"s/^(?<ip>(\d+\.){3}\d+)(?<subgroup>.+)(?<method>POST|GET|PUT|DELETE|OPTIONS|TRACE|CONNECT)/\e[1;21;41m$+{ip}\e[0m$+{subgroup}\e[1;21;41m$+{method}\e[0m /g\"" % env.log)
 
+def simple_smtp(host="localhost", port=1025):
+    local("python -m smtpd -n -c DebuggingServer %s:%s" % (host, port))
