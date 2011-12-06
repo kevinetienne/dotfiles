@@ -24,7 +24,6 @@ set nocompatible               " be iMproved
  " My Bundles here:
  " python
  Bundle 'pep8' 
- Bundle 'kevinw/pyflakes'
  Bundle 'fs111/pydoc.vim'
  Bundle 'lambdalisue/nose.vim'
  Bundle 'jmcantrell/vim-virtualenv'
@@ -33,10 +32,19 @@ set nocompatible               " be iMproved
  Bundle 'kchmck/vim-coffee-script'
 
  " JavaScript
+ Bundle 'pangloss/vim-javascript'
  Bundle 'JavaScript-Indent'
  Bundle 'hallettj/jslint.vim'
 
+ " Jade
+ Bundle 'digitaltoad/vim-jade'
+
+ " node.js
+ Bundle 'jamescarr/snipmate-nodejs'
+ Bundle 'guileen/vim-node'
+
  " code agnostic 
+ Bundle 'msanders/snipmate.vim'
  Bundle 'tpope/vim-surround'
  Bundle 'sjl/gundo.vim'
 
