@@ -33,8 +33,9 @@ set nocompatible               " be iMproved
 
  " JavaScript
  Bundle 'pangloss/vim-javascript'
- Bundle 'JavaScript-Indent'
- Bundle 'hallettj/jslint.vim'
+ Bundle 'vim-scripts/JavaScript-Indent'
+ Bundle 'ekevin/jsbeautify'
+ " Bundle 'hallettj/jslint.vim'
 
  " Jade
  Bundle 'digitaltoad/vim-jade'
@@ -44,6 +45,7 @@ set nocompatible               " be iMproved
  Bundle 'guileen/vim-node'
 
  " code agnostic 
+ Bundle 'scrooloose/syntastic'
  Bundle 'msanders/snipmate.vim'
  Bundle 'tpope/vim-surround'
  Bundle 'sjl/gundo.vim'
@@ -63,7 +65,6 @@ set nocompatible               " be iMproved
  Bundle 'fholgado/minibufexpl.vim'
  Bundle 'scrooloose/nerdtree'
  Bundle 'ervandew/supertab'
- " ...
 
  filetype plugin indent on     " required! 
  "
@@ -160,9 +161,11 @@ set nocompatible               " be iMproved
  let g:pyflakes_use_quickfix = 0                                             
  let g:SuperTabDefaultCompletionType = "context"  
 
- autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
- autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
- autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+ " JavaScript
+ au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+ au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+ au FileType html set omnifunc=htmlcomplete#CompleteTags
+ au FileType css set omnifunc=csscomplete#CompleteCSS
 
  " supertab
  let g:SuperTabDefaultCompletionType = "context"
