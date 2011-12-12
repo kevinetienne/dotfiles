@@ -104,9 +104,9 @@ set nocompatible               " be iMproved
  set virtualedit=block       " Let cursor move past the last char in <C-v> mode
  set scrolloff=3             " Keep 3 context lines above and below the cursor
  set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
- set showmatch               " Briefly jump to a paren once it's balanced
- set nowrap                  " don't wrap text
- set linebreak               " don't wrap textin the middle of a word
+ set showmatch               " Briefly jump to a parent once it's balanced
+ set nowrap                  " don't wrap lines
+ set linebreak               " don't wrap text in the middle of a word
  set autoindent              " always set autoindenting on
  set smartindent             " use smart indent if there is no indent file
  set tabstop=4               " <tab> inserts 4 spaces
@@ -119,7 +119,7 @@ set nocompatible               " be iMproved
  set foldlevel=99            " don't fold by default   
 
  """" Messages, Info, Status                                                    
- set ls=2                    " allways show status line                         
+ set ls=2                    " always show status line                         
  set vb t_vb=                " Disable all bells.  I hate ringing/flashing.     
  set confirm                 " Y-N-C prompt if closing with unsaved changes.    
  set showcmd                 " Show incomplete normal mode commands as I type.  
