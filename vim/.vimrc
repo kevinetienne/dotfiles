@@ -90,6 +90,9 @@ set nocompatible               " be iMproved
  " Open gundo
  map <leader>g :GundoToggle<CR>
  
+" hide matches on <leader>space$                                                                                                                          
+ nnoremap <leader><space> :nohlsearch<cr>$
+
  set number
 
  " show a line at column 79
