@@ -7,37 +7,14 @@ export MACPORT_PATH=/opt/local/bin:/opt/local/sbin:/opt/local/lib/mysql5/bin
 export PS1="\[\033[0;32m\]\h\[\033[00m\]:\[\033[0;32m\]\W \[\033[00m\]$ "
 
 alias ls="ls -G"
-
-# Android tools
-export ANDROID_PATH=$HOME/Programming/android/sdk/android-sdk-mac_x86/platform-tools
-
-# Clojure
-export CLOJURE_EXT=$HOME/.clojure
-export CLOJURE_PATH=$HOME/Programming/clojure/repo/clojure-contrib/launchers/bash
-export LEIN_PATH=$HOME/Programming/clojure/repo/leiningen/
-# clojurescript
-export CLOJURESCRIPT_HOME=$HOME/Programming/clojure/repo/clojurescript
-export CLOJURESCRIPT_PATH=$CLOJURESCRIPT_HOME/bin
-
-# go
-export GO_PATH=$HOME/Programming/go/repo/go/bin
-
-# my bash script
-export BASHSCRIPT=$HOME/bin/bash
-
-export USRLOCAL_PATH=/usr/local/bin
-
-export PATH=$MACPORT_PATH:$ANDROID_PATH:$CLOJURE_PATH:$LEIN_PATH:$CLOJURESCRIPT_PATH:$GO_PATH:$BASHSCRIPT:$USRLOCAL_PATH:$PATH
-
-export CLASSPATH="$CLASSPATH:/Users/kev/Programming/tools/antlr-3.4/lib/antlr-3.4-complete.jar"
-
-[[ -s "/Users/kev/.rvm/scripts/rvm" ]] && source "/Users/kev/.rvm/scripts/rvm"
-
+alias rhino='java org.mozilla.javascript.tools.shell.Main'
+alias clj=clj-env-dir
+alias redisstart="redis-server /opt/local/etc/redis.conf"
 alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf"
 mongostop_func () {
 
-#  local mongopid=`ps -o pid,command -ax | grep mongod | awk '!/awk/ && !/grep/{print $1}'`;
-#  just find a simpler way
+# local mongopid=`ps -o pid,command -ax | grep mongod | awk '!/awk/ && !/grep/{print $1}'`;
+# just find a simpler way
     local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
     if [[ $mongopid =~ [[:digit:]] ]]; then
         sudo kill -15 $mongopid;
@@ -48,4 +25,27 @@ mongostop_func () {
 }
 alias mongostop="mongostop_func"
 
-alias redisstart="redis-server /opt/local/etc/redis.conf"
+# source bash
+source ~/git-completion.bash
+
+# nodejs
+export NODE_PATH=$HOME/local/node/bin
+# java classpath
+export CLASSPATH=$CLASSPATH:/opt/local/share/java/bsh.jar
+# android
+export ANDROID_PATH=$HOME/Programming/android/android-sdk-mac_x86/platform-tools
+# scala
+export SCALA_PATH=$HOME/Programming/scala/scala/bin
+# clojure
+export CLOJURE_EXT=~/.clojure
+export CLOJURE_PATH=/Users/kev/Programming/clojure/clojure-contrib/launchers/bash
+export LEIN_PATH=/Users/kev/Programming/clojure/leiningen/
+
+# my bash script
+export BASHSCRIPT=/Users/kev/bin/bash
+
+export USRLOCAL_PATH=/usr/local/bin
+
+export PATH=$MACPORT_PATH:$ANDROID_PATH:$CLOJURE_PATH:$LEIN_PATH:$CLOJURESCRIPT_PATH:$GO_PATH:$BASHSCRIPT:$USRLOCAL_PATH:$PATH
+export PATH=$PATH:/opt/node/bin
+export NODE_PATH=/opt/node:/opt/node/lib/node_modules
