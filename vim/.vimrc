@@ -25,11 +25,14 @@ set nocompatible               " be iMproved
  " python
  Bundle 'pep8' 
  Bundle 'fs111/pydoc.vim'
- Bundle 'lambdalisue/nose.vim'
+ " Bundle 'lambdalisue/nose.vim'
  Bundle 'jmcantrell/vim-virtualenv'
 
  " CoffeeScript
  Bundle 'kchmck/vim-coffee-script'
+
+ " css"
+ Bundle 'wavded/vim-stylus'
 
  " JavaScript
  Bundle 'pangloss/vim-javascript'
@@ -89,10 +92,9 @@ set nocompatible               " be iMproved
  map <leader>n :NERDTreeToggle<CR>
  " Open gundo
  map <leader>g :GundoToggle<CR>
+ " Clear highlight
+ map <leader><space> :nohlsearch<CR>
  
-" hide matches on <leader>space$                                                                                                                          
- nnoremap <leader><space> :nohlsearch<cr>$
-
  set number
 
  " show a line at column 79
@@ -156,7 +158,6 @@ set nocompatible               " be iMproved
  set pumheight=6             " Keep a small completion window 
 
  " python
- au BufRead *.py compiler nose                                              
  au FileType python set omnifunc=pythoncomplete#Complete                     
  au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
  au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
@@ -167,5 +168,8 @@ set nocompatible               " be iMproved
  " JavaScript
  au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
  au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+ au FileType jade set omnifunc=javascriptcomplete#CompleteJS
+ au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
  au FileType html set omnifunc=htmlcomplete#CompleteTags
  au FileType css set omnifunc=csscomplete#CompleteCSS
+
