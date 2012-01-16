@@ -165,6 +165,9 @@ set nocompatible               " be iMproved
  let g:pyflakes_use_quickfix = 0                                             
  let g:SuperTabDefaultCompletionType = "context"  
 
+ " Ruby
+ au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
+
  " JavaScript
  au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
  au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
