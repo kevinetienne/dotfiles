@@ -166,7 +166,7 @@ set nocompatible               " be iMproved
  let g:SuperTabDefaultCompletionType = "context"  
 
  " Ruby
- au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2
+ au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
 
  " JavaScript
  au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
