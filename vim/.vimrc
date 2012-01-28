@@ -1,178 +1,178 @@
 set nocompatible               " be iMproved
 
- " set 256 colors
- set t_Co=256
- " font
- set guifont=Inconsolata:h18
- " colorscheme
- colorscheme wombat
- syntax on
+" set 256 colors
+set t_Co=256
+" font
+set guifont=Inconsolata:h18
+" colorscheme
+colorscheme wombat
+syntax on
 
- filetype off                   " required!
+filetype off                   " required!
 
- " remove menu and toolbar
- set guioptions-=m
- set guioptions-=T
+" remove menu and toolbar
+set guioptions-=m
+set guioptions-=T
 
- set rtp+=~/.vim/bundle/vundle/
- call vundle#rc()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
- " let Vundle manage Vundle
- " required! 
- Bundle 'gmarik/vundle'
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
 
- " My Bundles here:
- " python
- Bundle 'pep8' 
- Bundle 'fs111/pydoc.vim'
- " Bundle 'lambdalisue/nose.vim'
- Bundle 'jmcantrell/vim-virtualenv'
+" My Bundles here:
+" python
+Bundle 'pep8' 
+Bundle 'fs111/pydoc.vim'
+" Bundle 'lambdalisue/nose.vim'
+Bundle 'jmcantrell/vim-virtualenv'
 
- " CoffeeScript
- Bundle 'kchmck/vim-coffee-script'
+" CoffeeScript
+Bundle 'kchmck/vim-coffee-script'
 
- " css"
- Bundle 'wavded/vim-stylus'
+" css"
+Bundle 'wavded/vim-stylus'
 
- " JavaScript
- Bundle 'pangloss/vim-javascript'
- Bundle 'vim-scripts/JavaScript-Indent'
- Bundle 'ekevin/jsbeautify'
- " Bundle 'hallettj/jslint.vim'
+" JavaScript
+Bundle 'pangloss/vim-javascript'
+Bundle 'vim-scripts/JavaScript-Indent'
+Bundle 'ekevin/jsbeautify'
+" Bundle 'hallettj/jslint.vim'
 
- " Jade
- Bundle 'digitaltoad/vim-jade'
+" Jade
+Bundle 'digitaltoad/vim-jade'
 
- " node.js
- Bundle 'jamescarr/snipmate-nodejs'
- Bundle 'guileen/vim-node'
+" node.js
+Bundle 'jamescarr/snipmate-nodejs'
+Bundle 'guileen/vim-node'
 
- " code agnostic 
- Bundle 'scrooloose/syntastic'
- Bundle 'msanders/snipmate.vim'
- Bundle 'tpope/vim-surround'
- Bundle 'sjl/gundo.vim'
+" code agnostic 
+Bundle 'scrooloose/syntastic'
+Bundle 'msanders/snipmate.vim'
+Bundle 'tpope/vim-surround'
+Bundle 'sjl/gundo.vim'
 
- " original repos on github
- Bundle 'tpope/vim-fugitive'
- Bundle 'Lokaltog/vim-easymotion'
- Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
- Bundle 'tpope/vim-rails.git'
+" original repos on github
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'tpope/vim-rails.git'
 
- " vim-scripts repos
- Bundle 'L9'
- Bundle 'FuzzyFinder'
+" vim-scripts repos
+Bundle 'L9'
+Bundle 'FuzzyFinder'
 
- " Navigation 
- Bundle 'git://git.wincent.com/command-t.git'
- Bundle 'fholgado/minibufexpl.vim'
- Bundle 'scrooloose/nerdtree'
- Bundle 'ervandew/supertab'
+" Navigation 
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'fholgado/minibufexpl.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'ervandew/supertab'
 
- filetype plugin indent on     " required! 
- "
- " Brief help
- " :BundleList          - list configured bundles
- " :BundleInstall(!)    - install(update) bundles
- " :BundleSearch(!) foo - search(or refresh cache first) for foo
- " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
- "
- " see :h vundle for more details or wiki for FAQ
- " NOTE: comments after Bundle command are not allowed..
- 
- let mapleader=','
+filetype plugin indent on     " required! 
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
 
- " ctrl-jklm  changes to that split
- map <c-j> <c-w>j
- map <c-k> <c-w>k
- map <c-l> <c-w>l
- map <c-h> <c-w>h
- 
- " Open NerdTree
- map <leader>n :NERDTreeToggle<CR>
- " Open gundo
- map <leader>g :GundoToggle<CR>
- " Clear highlight
- map <leader><space> :nohlsearch<CR>
- 
- set number
+let mapleader=','
 
- " show a line at column 79
- if exists("&colorcolumn")
-     set colorcolumn=79
-     endif
- 
- """ Moving Around/Editing
- set cursorline              " have a line indicate the cursor location
- set ruler                   " show the cursor position all the time
- set nostartofline           " Avoid moving cursor to BOL when jumping around
- set virtualedit=block       " Let cursor move past the last char in <C-v> mode
- set scrolloff=3             " Keep 3 context lines above and below the cursor
- set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
- set showmatch               " Briefly jump to a parent once it's balanced
- set nowrap                  " don't wrap lines
- set linebreak               " don't wrap text in the middle of a word
- set autoindent              " always set autoindenting on
- set smartindent             " use smart indent if there is no indent file
- set tabstop=4               " <tab> inserts 4 spaces
- set shiftwidth=4            " but an indent level is 2 spaces wide.
- set softtabstop=4           " <BS> over an autoindent deletes both spaces.
- set expandtab               " Use spaces, not tabs, for autoindent/tab key.
- set shiftround              " rounds indent to a multiple of shiftwidth
- set matchpairs+=<:>         " show matching <> (html mainly) as well
- set foldmethod=indent       " allow us to fold on indents
- set foldlevel=99            " don't fold by default   
+" ctrl-jklm  changes to that split
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
 
- """" Messages, Info, Status                                                    
- set ls=2                    " always show status line                         
- set vb t_vb=                " Disable all bells.  I hate ringing/flashing.     
- set confirm                 " Y-N-C prompt if closing with unsaved changes.    
- set showcmd                 " Show incomplete normal mode commands as I type.  
- set report=0                " : commands always print changed line count.      
- set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.  
- set ruler                   " Show some info, even without statuslines.        
- set laststatus=2            " Always show statusline, even if only 1 window.   
- set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}   
+" Open NerdTree
+map <leader>n :NERDTreeToggle<CR>
+" Open gundo
+map <leader>g :GundoToggle<CR>
+" Clear highlight
+map <leader><space> :nohlsearch<CR>
 
- " displays tabs with :set list & displays when a line runs off-screen          
- set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>                        
- set list                                                                       
+set number
 
- """ Searching and Patterns                                                     
- set ignorecase              " Default to using case insensitive searches,      
- set smartcase               " unless uppercase letters are used in the regex.                                                                            
- set smarttab                " Handle tabs more intelligently                   
- set hlsearch                " Highlight searches by default.                   
- set incsearch               " Incrementally search while typing a /regex 
+" show a line at column 79
+if exists("&colorcolumn")
+    set colorcolumn=79
+endif
 
- " minibufexpl
- let g:miniBufExplMapWindowNavVim = 1
- let g:miniBufExplMapWindowNavArrows = 1
- let g:miniBufExplMapCTabSwitchBufs = 1
- let g:miniBufExplModSelTarget = 1
+""" Moving Around/Editing
+set cursorline              " have a line indicate the cursor location
+set ruler                   " show the cursor position all the time
+set nostartofline           " Avoid moving cursor to BOL when jumping around
+set virtualedit=block       " Let cursor move past the last char in <C-v> mode
+set scrolloff=3             " Keep 3 context lines above and below the cursor
+set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
+set showmatch               " Briefly jump to a parent once it's balanced
+set nowrap                  " don't wrap lines
+set linebreak               " don't wrap text in the middle of a word
+set autoindent              " always set autoindenting on
+set smartindent             " use smart indent if there is no indent file
+set tabstop=4               " <tab> inserts 4 spaces
+set shiftwidth=4            " but an indent level is 2 spaces wide.
+set softtabstop=4           " <BS> over an autoindent deletes both spaces.
+set expandtab               " Use spaces, not tabs, for autoindent/tab key.
+set shiftround              " rounds indent to a multiple of shiftwidth
+set matchpairs+=<:>         " show matching <> (html mainly) as well
+set foldmethod=indent       " allow us to fold on indents
+set foldlevel=99            " don't fold by default   
 
- " omnicompletion
- """ Insert completion                                                                                                                                    
- " don't select first item, follow typing in autocomplete                       
- set completeopt=menuone,longest,preview                                        
- set pumheight=6             " Keep a small completion window 
+"""" Messages, Info, Status                                                    
+set ls=2                    " always show status line                         
+set vb t_vb=                " Disable all bells.  I hate ringing/flashing.     
+set confirm                 " Y-N-C prompt if closing with unsaved changes.    
+set showcmd                 " Show incomplete normal mode commands as I type.  
+set report=0                " : commands always print changed line count.      
+set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.  
+set ruler                   " Show some info, even without statuslines.        
+set laststatus=2            " Always show statusline, even if only 1 window.   
+set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}   
 
- " python
- au FileType python set omnifunc=pythoncomplete#Complete                     
- au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
- au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
- " Don't let pyflakes use the quickfix window                                
- let g:pyflakes_use_quickfix = 0                                             
- let g:SuperTabDefaultCompletionType = "context"  
+" displays tabs with :set list & displays when a line runs off-screen          
+set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>                        
+set list                                                                       
 
- " Ruby
- au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+""" Searching and Patterns                                                     
+set ignorecase              " Default to using case insensitive searches,      
+set smartcase               " unless uppercase letters are used in the regex.                                                                            
+set smarttab                " Handle tabs more intelligently                   
+set hlsearch                " Highlight searches by default.                   
+set incsearch               " Incrementally search while typing a /regex 
 
- " JavaScript
- au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
- au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
- au FileType jade set omnifunc=javascriptcomplete#CompleteJS
- au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
- au FileType html set omnifunc=htmlcomplete#CompleteTags
- au FileType css set omnifunc=csscomplete#CompleteCSS
+" minibufexpl
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
+
+" omnicompletion
+""" Insert completion                                                                                                                                    
+" don't select first item, follow typing in autocomplete                       
+set completeopt=menuone,longest,preview                                        
+set pumheight=6             " Keep a small completion window 
+
+" python
+au FileType python set omnifunc=pythoncomplete#Complete                     
+au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
+" Don't let pyflakes use the quickfix window                                
+let g:pyflakes_use_quickfix = 0                                             
+let g:SuperTabDefaultCompletionType = "context"  
+
+" Ruby
+au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+
+" JavaScript
+au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
+au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+au FileType jade set omnifunc=javascriptcomplete#CompleteJS
+au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
+au FileType html set omnifunc=htmlcomplete#CompleteTags
+au FileType css set omnifunc=csscomplete#CompleteCSS
 
