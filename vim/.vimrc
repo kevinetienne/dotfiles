@@ -2,8 +2,6 @@ set nocompatible               " be iMproved
 
 " set 256 colors
 set t_Co=256
-" font
-set guifont=Inconsolata:h18
 " colorscheme
 colorscheme wombat
 syntax on
@@ -27,6 +25,11 @@ Bundle 'pep8'
 Bundle 'fs111/pydoc.vim'
 " Bundle 'lambdalisue/nose.vim'
 Bundle 'jmcantrell/vim-virtualenv'
+
+" Ruby
+Bundle 'hallison/vim-ruby-sinatra'
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-rake'
 
 " CoffeeScript
 Bundle 'kchmck/vim-coffee-script'
