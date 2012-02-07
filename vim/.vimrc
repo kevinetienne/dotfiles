@@ -27,6 +27,7 @@ Bundle 'fs111/pydoc.vim'
 Bundle 'jmcantrell/vim-virtualenv'
 
 " Ruby
+Bundle 'vim-ruby/vim-ruby'
 Bundle 'hallison/vim-ruby-sinatra'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-rake'
@@ -177,5 +178,6 @@ au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 au FileType jade set omnifunc=javascriptcomplete#CompleteJS
 au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType html set omnifunc=htmlcomplete#CompleteTags
+au FileType html setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType css set omnifunc=csscomplete#CompleteCSS
 
