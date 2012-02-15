@@ -125,28 +125,28 @@ set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set foldmethod=indent       " allow us to fold on indents
-set foldlevel=99            " don't fold by default   
+set foldlevel=99            " don't fold by default
 
-"""" Messages, Info, Status                                                    
-set ls=2                    " always show status line                         
-set vb t_vb=                " Disable all bells.  I hate ringing/flashing.     
-set confirm                 " Y-N-C prompt if closing with unsaved changes.    
-set showcmd                 " Show incomplete normal mode commands as I type.  
-set report=0                " : commands always print changed line count.      
-set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.  
-set ruler                   " Show some info, even without statuslines.        
-set laststatus=2            " Always show statusline, even if only 1 window.   
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}   
+"""" Messages, Info, Status
+set ls=2                    " always show status line
+set vb t_vb=                " Disable all bells.  I hate ringing/flashing.
+set confirm                 " Y-N-C prompt if closing with unsaved changes.
+set showcmd                 " Show incomplete normal mode commands as I type.
+set report=0                " : commands always print changed line count.
+set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
+set ruler                   " Show some info, even without statuslines.
+set laststatus=2            " Always show statusline, even if only 1 window.
+set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
-" displays tabs with :set list & displays when a line runs off-screen          
-set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>                        
-set list                                                                       
+" displays tabs with :set list & displays when a line runs off-screen
+set listchars=tab:>-,eol:$,trail:-,precedes:<,extends:>
+set list
 
-""" Searching and Patterns                                                     
-set ignorecase              " Default to using case insensitive searches,      
-set smartcase               " unless uppercase letters are used in the regex.                                                                            
-set smarttab                " Handle tabs more intelligently                   
-set hlsearch                " Highlight searches by default.                   
+""" Searching and Patterns
+set ignorecase              " Default to using case insensitive searches,
+set smartcase               " unless uppercase letters are used in the regex.
+set smarttab                " Handle tabs more intelligently
+set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex 
 
 " minibufexpl
@@ -156,18 +156,18 @@ let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
 
 " omnicompletion
-""" Insert completion                                                                                                                                    
-" don't select first item, follow typing in autocomplete                       
-set completeopt=menuone,longest,preview                                        
+""" Insert completion
+" don't select first item, follow typing in autocomplete
+set completeopt=menuone,longest,preview
 set pumheight=6             " Keep a small completion window 
 
 " python
-au FileType python set omnifunc=pythoncomplete#Complete                     
+au FileType python set omnifunc=pythoncomplete#Complete
 au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
 au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
-" Don't let pyflakes use the quickfix window                                
-let g:pyflakes_use_quickfix = 0                                             
-let g:SuperTabDefaultCompletionType = "context"  
+" Don't let pyflakes use the quickfix window
+let g:pyflakes_use_quickfix = 0
+let g:SuperTabDefaultCompletionType = "context"
 
 " Ruby
 au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
