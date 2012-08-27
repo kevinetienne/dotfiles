@@ -1,0 +1,99 @@
+#
+# Sets Oh My Zsh options.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+# Set the key mapping style to 'emacs' or 'vi'.
+zstyle ':omz:module:editor' keymap 'vi'
+
+# Auto convert .... to ../..
+zstyle ':omz:module:editor' dot-expansion 'no'
+
+# Set case-sensitivity for completion, history lookup, etc.
+zstyle ':omz:*:*' case-sensitive 'no'
+
+# Color output (auto set to 'no' on dumb terminals).
+zstyle ':omz:*:*' color 'yes'
+
+# Auto set the tab and window titles.
+zstyle ':omz:module:terminal' auto-title 'yes'
+
+# Set the Zsh modules to load (man zshmodules).
+# zstyle ':omz:load' zmodule 'attr' 'stat'
+
+# Set the Zsh functions to load (man zshcontrib).
+# zstyle ':omz:load' zfunction 'zargs' 'zmv'
+
+# Set the Oh My Zsh modules to load (browse modules).
+# The order matters.
+zstyle ':omz:load' omodule \
+    'environment' \
+    'terminal' \
+    'editor' \
+    'history' \
+    'directory' \
+    'spectrum' \
+    'alias' \
+    'completion' \
+    'utility' \
+    'prompt' \
+    'git'
+
+# Set the prompt theme to load.
+# Setting it to 'random' loads a random theme.
+# Auto set to 'off' on dumb terminals.
+zstyle ':omz:module:prompt' theme 'sorin'
+
+# This will make you shout: OH MY ZSHELL!
+source "$OMZ/init.zsh"
+
+# Customize to your needs...
+
+PATHDIRS=(
+/opt/local/bin
+/opt/local/sbin
+/opt/local/lib/mysql5/bin
+/opt/local/lib/postgresql90/bin
+/Users/kev/Programming/android/sdk/android-sdk-mac_x86/platform-tools
+$HOME/bin
+$HOME/bin/clojure
+$HOME/Programming/go/repo/go/bin
+/usr/local/bin
+/opt/node
+/opt/node/lib/node_modules
+/opt/node/bin
+)
+
+for dir in $PATHDIRS; do
+    if [ -d $dir ]; then
+        path=($path $dir)
+    fi
+done
+
+alias ls="ls -G"
+alias pgstart="sudo su postgres -c '/opt/local/lib/postgresql90/bin/postgres -D /opt/local/var/db/postgresql90/defaultdb' &"
+
+alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf"
+mongostop_func () {
+
+#  local mongopid=`ps -o pid,command -ax | grep mongod | awk '!/awk/ && !/grep/{print $1}'`;
+#  just find a simpler way
+    local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
+    if [[ $mongopid =~ [[:digit:]] ]]; then
+        sudo kill -15 $mongopid;
+        echo mongod process $mongopid terminated;
+    else
+        echo mongo process $mongopid not exist;
+    fi
+}
+alias mongostop="mongostop_func"
+
+alias redisstart="redis-server /opt/local/etc/redis.conf"
+
+[[ -s "/Users/kev/.rvm/scripts/rvm" ]] && source "/Users/kev/.rvm/scripts/rvm"
+
+export VMAIL_VIM=mvim
+export PAGER="col -b | vim -R -c 'set ft=man nomod nolist' -"
+set -o vi
