@@ -23,19 +23,20 @@ hi Normal		ctermfg=254		ctermbg=234		cterm=none		guifg=#f6f3e8	guibg=#242424	gui
 hi Cursor		ctermfg=none	ctermbg=241		cterm=none		guifg=NONE		guibg=#656565	gui=none
 hi Visual		ctermfg=7		ctermbg=238		cterm=none		guifg=#f6f3e8	guibg=#444444	gui=none
 " hi VisualNOS
-" hi Search
+hi Search cterm=none ctermfg=235 ctermbg=yellow
 hi Folded		ctermfg=103		ctermbg=238		cterm=none		guifg=#a0a8b0	guibg=#384048	gui=none
 hi Title		ctermfg=7		ctermbg=none	cterm=bold		guifg=#f6f3e8	guibg=NONE		gui=bold
-hi StatusLine	ctermfg=7		ctermbg=238		cterm=none		guifg=#f6f3e8	guibg=#444444	gui=italic
-hi VertSplit	ctermfg=238		ctermbg=238		cterm=none		guifg=#444444	guibg=#444444	gui=none
+hi StatusLine	ctermfg=7		ctermbg=236		cterm=none		guifg=#f6f3e8	guibg=#444444	gui=italic
+hi VertSplit	ctermfg=236		ctermbg=235		cterm=none		guifg=#444444	guibg=#444444	gui=none
 hi StatusLineNC	ctermfg=243		ctermbg=238		cterm=none		guifg=#857b6f	guibg=#444444	gui=none
-hi LineNr		ctermfg=243		ctermbg=0		cterm=none		guifg=#857b6f	guibg=#000000	gui=none
-hi SpecialKey	ctermfg=244		ctermbg=236		cterm=none		guifg=#808080	guibg=#343434	gui=none
-hi NonText		ctermfg=244		ctermbg=236		cterm=none		guifg=#808080	guibg=#303030	gui=none
+hi LineNr		ctermfg=240		ctermbg=232	cterm=none		guifg=#857b6f	guibg=#000000	gui=none
+hi SpecialKey	ctermfg=244		ctermbg=234		cterm=none		guifg=#808080	guibg=#343434	gui=none
+hi NonText		ctermfg=244		ctermbg=235		cterm=none		guifg=#808080	guibg=#303030	gui=none
+hi ColorColumn guibg=#2d2d2d ctermbg=236
 
 " Vim >= 7.0 specific colors
 if version >= 700
-hi CursorLine					ctermbg=236		cterm=none						guibg=#2d2d2d
+hi CursorLine					ctermbg=238		cterm=none						guibg=#2d2d2d
 hi MatchParen	ctermfg=7		ctermbg=243		cterm=bold		guifg=#f6f3e8	guibg=#857b6f	gui=bold
 hi Pmenu		ctermfg=7		ctermbg=238						guifg=#f6f3e8	guibg=#444444
 hi PmenuSel		ctermfg=0		ctermbg=192						guifg=#000000	guibg=#cae682
@@ -62,3 +63,5 @@ hi! link FoldColumn		Folded
 hi! link CursorColumn	CursorLine
 
 " vim:set ts=4 sw=4 noet:
+hi IndentGuidesOdd  ctermbg=black
+hi IndentGuidesEven ctermbg=darkgrey

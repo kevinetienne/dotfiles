@@ -1,28 +1,19 @@
 set nocompatible               " be iMproved
 
-" @see https://github.com/fholgado/minibufexpl.vim/issues/6
-let g:miniBufExplCheckDupeBufs = 0
-
-" Show syntax highlighting groups for word under cursor
-nnoremap <C-S-P> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-    if !exists("*synstack")
-        return
-    endif
-    echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
 " set 256 colors
 set t_Co=256
+
 " colorscheme
 colorscheme wombat256
 syntax on
 
 if has("gui_running")
-    set guifont=Monaco:h10
+    set guifont=Bitstream\ Vera\ Sans\ Mono:h11
     " remove menu and toolbar
     set guioptions-=m
     set guioptions-=T
+    set guioptions-=r
+    set guioptions-=l
 endif
 
 filetype off                   " required!
@@ -33,6 +24,13 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required!
 Bundle 'gmarik/vundle'
+
+" scala
+Bundle "derekwyatt/vim-scala"
+
+" clojure
+Bundle "guns/vim-clojure-static"
+
 
 " python
 Bundle 'pep8'
@@ -48,40 +46,38 @@ Bundle 'tpope/vim-rake'
 Bundle 'tpope/vim-endwise'
 Bundle 'tpope/vim-cucumber'
 
-" Clojure
-Bundle 'vim-scripts/VimClojure'
-
 " CoffeeScript
 Bundle 'kchmck/vim-coffee-script'
 
-" css"
-Bundle 'wavded/vim-stylus'
-
 " JavaScript
-Bundle 'pangloss/vim-javascript'
-Bundle 'vim-scripts/JavaScript-Indent'
-Bundle 'ekevin/jsbeautify'
-" Bundle 'hallettj/jslint.vim'
+Bundle "jelera/vim-javascript-syntax"
+Bundle 'maksimr/vim-jsbeautify'
+" check if no conflict with syntastic
+Bundle 'joestelmach/lint.vim'
+
 
 " node.js
-Bundle 'jamescarr/snipmate-nodejs'
 Bundle 'guileen/vim-node'
 
-Bundle 'scala/scala-dist', {'rtp': 'tool-support/src/vim' }
+" go
+Bundle "jnwhiteh/vim-golang"
+Bundle "nsf/gocode", {'rtp': 'vim'}
 
 " code agnostic
 Bundle 'scrooloose/syntastic'
-Bundle 'msanders/snipmate.vim'
 Bundle 'tpope/vim-surround'
 Bundle 'sjl/gundo.vim'
 Bundle 'vim-scripts/taglist.vim'
 Bundle 'majutsushi/tagbar'
+Bundle 'Raimondi/delimitMate'
+Bundle 'jpalardy/vim-slime'
+"Bundle "juanpabloaj/ShowMarks"
 
 " original repos on github
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'tpope/vim-rails.git'
+" rubbish install see vim/README.txt
+" Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " vim-scripts repos
 Bundle 'L9'
@@ -89,36 +85,40 @@ Bundle 'FuzzyFinder'
 
 " Navigation
 Bundle 'git://git.wincent.com/command-t.git'
-" Bundle 'fholgado/minibufexpl.vim'
+Bundle "jeetsukumaran/vim-buffergator"
 Bundle 'scrooloose/nerdtree'
 Bundle 'ervandew/supertab'
 Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/nerdcommenter'
 
 " Search
 Bundle 'git://github.com/mileszs/ack.vim.git'
-
-" Indent guides with alternative color
-Bundle 'git://github.com/nathanaelkane/vim-indent-guides.git'
 
 " GPG
 Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 
 " Status line
-" Bundle "Lokaltog/vim-powerline"
+" Powerline needs now to be installed globally on the system
+" Vundle and Pathogen install are not available
+" Bundle "Lokaltog/powerline"
 
 " cursor with iterm2
 Bundle "sjl/vitality.vim"
 
-"TODO list
-Bundle "vimoutliner/vimoutliner"
 
 Bundle "othree/html5.vim"
-Bundle "tpope/vim-markdown"
+
+Bundle "tomasr/molokai"
 
 " wm manager!
-Bundle 'spolu/dwm.vim'
+" Bundle 'spolu/dwm.vim'
+
+Bundle "vim-scripts/Lynx-Offline-Documentation-Browser"
 
 filetype plugin indent on     " required!
+"python from powerline.bindings.vim import source_plugin; source_plugin()
+"source /Users/kev/code/tools/repo/powerline/powerline/bindings/vim/plugin/powerline.vim
+
 "
 " Brief help
 " :BundleList          - list configured bundles
@@ -131,12 +131,21 @@ filetype plugin indent on     " required!
 
 let mapleader=','
 
+" Avoid using arrows
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
+
 " ctrl-jklm  changes to that split
 noremap <c-j> <c-w>j
 noremap <c-k> <c-w>k
 noremap <c-l> <c-w>l
 noremap <c-h> <c-w>h
 
+" Vertical split
+noremap <leader>vs :vsplit<CR>
+noremap <leader>hs :split<CR>
 " Open NerdTree
 noremap <leader>n :NERDTreeToggle<CR>
 " Open tagbar
@@ -157,20 +166,23 @@ noremap <leader>a :Ack "<C-R><C-W>"<CR>
 nnoremap <leader>q viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>sq viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>q= viw<esc>a %><esc>hbi<%= <esc>lel
+nnoremap <leader>b :BuffergatorToggle<cr>
+nnoremap <leader>r :30winc <<cr>
+nnoremap <leader>a :30winc ><cr>
 
-nnoremap <silent> <leader>b :set opfunc=AckGroup<CR>g@
-vnoremap <silent> <leader>b :<C-U>call AckGroup(visualmode(), 1)<CR>
+" nnoremap <silent> <leader>b :set opfunc=AckGroup<CR>g@
+" vnoremap <silent> <leader>b :<C-U>call AckGroup(visualmode(), 1)<CR>
 
 function! AckGroup(type, ...)
-  " save current register
-  let reg_save = @@
+    " save current register
+    let reg_save = @@
 
-  echomsg &selection
-  echomsg a:type
-  echomsg a:0
+    echomsg &selection
+    echomsg a:type
+    echomsg a:0
 
-  " restore current register
-  let @@ = reg_save
+    " restore current register
+    let @@ = reg_save
 endfunction
 
 
@@ -182,11 +194,6 @@ nnoremap ; :
 " map <D-w> :bd
 
 set number
-
-" show a line at column 79
-if exists("&colorcolumn")
-    set colorcolumn=79
-endif
 
 """ Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -206,8 +213,8 @@ set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
-set foldmethod=indent       " allow us to fold on indents
-set foldlevel=99            " don't fold by default
+set nofoldenable
+"set foldlevel=99            " don't fold by default
 "some stuff to get the mouse going in term
 set mouse=a
 
@@ -231,7 +238,7 @@ set statusline+=%h      "help file flag
 set statusline+=%m      "modified flag
 set statusline+=%r      "read only flag
 set statusline+=%y      "filetype
-set statusline+=\ %{fugitive#statusline()}\    
+set statusline+=\ %{fugitive#statusline()}\
 set statusline+=%=      "left/right separator
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
@@ -241,8 +248,9 @@ set statusline+=\ %P    "percent through file
 set listchars=tab:>-,eol:¬,trail:-,precedes:<,extends:>
 set showbreak=↪
 set fillchars=diff:⣿,vert:│
-set colorcolumn=+1
 set list
+let &colorcolumn=join(range(81,999),",")
+let &colorcolumn="80,".join(range(120,999),",")
 
 " Resize splits when the window is resized
 au VimResized * :wincmd =
@@ -256,11 +264,6 @@ set incsearch               " Incrementally search while typing a /regex
 
 " nerdtree
 let NERDTreeShowHidden=1
-" minibufexpl
-" let g:miniBufExplMapWindowNavVim = 1
-" let g:miniBufExplMapWindowNavArrows = 1
-" let g:miniBufExplMapCTabSwitchBufs = 1
-" let g:miniBufExplModSelTarget = 1
 
 " omnicompletion
 """ Insert completion
@@ -284,11 +287,13 @@ au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwo
 au Bufenter,Bufnewfile *.clj setl complete+=k~/.clj_completions
 
 " Coffeescript
-au FileType coffee setlocal expandtab shiftwidth=2 softtabstop=2
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+au BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
 " JavaScript
 au FileType javascript setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+au FileType javascript noremap <buffer>  <c-f> :call JsBeautify()<cr>
 
 " html/css
 au FileType jade set omnifunc=javascriptcomplete#CompleteJS
@@ -297,15 +302,13 @@ au FileType html set omnifunc=htmlcomplete#CompleteTags
 au FileType html setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType css set omnifunc=csscomplete#CompleteCSS
 au FileType css setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+au FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+au FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+au BufRead *.ejs set filetype=html
 
 " Helper
 "" display indentation lines
-" set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
+set list listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 
-" highlight ExtraWhitespace ctermbg=red guibg=red
-" match ExtraWhitespace /\s\+$/
-" autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
-" autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
-" autocmd InsertLeave * match ExtraWhitespace /\s\+$/
-" autocmd BufWinLeave * call clearmatches()
+let g:slime_target = "tmux"
 
