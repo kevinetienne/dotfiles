@@ -1,99 +1,80 @@
-#
-# Sets Oh My Zsh options.
-#
-# Authors:
-#   Sorin Ionescu <sorin.ionescu@gmail.com>
-#
+ZSH=$HOME/.oh-my-zsh
+ZSH_THEME="simple"
+plugins=(git git-extras git-flow git-hubflow git-remote-branch python)
 
-# Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':omz:module:editor' keymap 'vi'
+source $ZSH/oh-my-zsh.sh
 
-# Auto convert .... to ../..
-zstyle ':omz:module:editor' dot-expansion 'no'
+# User configuration
 
-# Set case-sensitivity for completion, history lookup, etc.
-zstyle ':omz:*:*' case-sensitive 'no'
+alias v='vim'
+alias nv='nvim'
 
-# Color output (auto set to 'no' on dumb terminals).
-zstyle ':omz:*:*' color 'yes'
+alias mt='make test'
+alias mtv='make test verbosity=2'
+alias pm='python manage.py'
+alias pms='pm shell'
+alias pmrs='pm runserver'
+alias pmrsp='pm runserver_plus'
+alias pmsdb='pm syncdb'
+alias pmm='pm migrate'
+alias pmmm='pm makemigrations'
+alias pmml='pm migrate --list'
+alias pmsm='pm schemamigration'
+alias pmsu='pm createsuperuser'
 
-# Auto set the tab and window titles.
-zstyle ':omz:module:terminal' auto-title 'yes'
+alias mkv='mkvirtualenv'
 
-# Set the Zsh modules to load (man zshmodules).
-# zstyle ':omz:load' zmodule 'attr' 'stat'
+alias py='python'
+alias py3='python3.4'
 
-# Set the Zsh functions to load (man zshcontrib).
-# zstyle ':omz:load' zfunction 'zargs' 'zmv'
 
-# Set the Oh My Zsh modules to load (browse modules).
-# The order matters.
-zstyle ':omz:load' omodule \
-    'environment' \
-    'terminal' \
-    'editor' \
-    'history' \
-    'directory' \
-    'spectrum' \
-    'alias' \
-    'completion' \
-    'utility' \
-    'prompt' \
-    'git'
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# Set the prompt theme to load.
-# Setting it to 'random' loads a random theme.
-# Auto set to 'off' on dumb terminals.
-zstyle ':omz:module:prompt' theme 'sorin'
+# Preferred editor for local and remote sessions
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
-# This will make you shout: OH MY ZSHELL!
-source "$OMZ/init.zsh"
+export WORKON_HOME=$HOME/.envs
+export PROJECT_HOME=$HOME/code
+export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 
-# Customize to your needs...
+# amazon
+export AWS_ACCESS_KEY_ID=''
+export AWS_SECRET_ACCESS_KEY=''
 
-PATHDIRS=(
-/opt/local/bin
-/opt/local/sbin
-/opt/local/lib/mysql5/bin
-/opt/local/lib/postgresql90/bin
-/Users/kev/Programming/android/sdk/android-sdk-mac_x86/platform-tools
-$HOME/bin
-$HOME/bin/clojure
-$HOME/Programming/go/repo/go/bin
-/usr/local/bin
-/opt/node
-/opt/node/lib/node_modules
-/opt/node/bin
-)
+# google
+export GOOGLE_OAUTH2_CLIENT_ID=''
+export GOOGLE_OAUTH2_CLIENT_SECRET=''
 
-for dir in $PATHDIRS; do
-    if [ -d $dir ]; then
-        path=($path $dir)
-    fi
-done
+# Set colors to match iTerm2 Terminal Colors
+export TERM=xterm-256color
 
-alias ls="ls -G"
-alias pgstart="sudo su postgres -c '/opt/local/lib/postgresql90/bin/postgres -D /opt/local/var/db/postgresql90/defaultdb' &"
+#django
+export DEBUG=True
+export STATIC_URL='/static/'
+export DEFAULT_FILE_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
+export STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
 
-alias mongostart="sudo mongod -f /opt/local/etc/mongodb/mongod.conf"
-mongostop_func () {
+# geodjango
+# GDAL_LIBRARY_PATH="/Applications/Postgres.app/Contents/MacOS/lib/libgdal.dylib"
+# GEOS_LIBRARY_PATH="/Applications/Postgres.app/Contents/MacOS/lib/libgeos_c.dylib"
+# GDAL_DATA="/Applications/Postgres.app/Contents/MacOS/share/gdal"
 
-#  local mongopid=`ps -o pid,command -ax | grep mongod | awk '!/awk/ && !/grep/{print $1}'`;
-#  just find a simpler way
-    local mongopid=`less /opt/local/var/db/mongodb_data/mongod.lock`;
-    if [[ $mongopid =~ [[:digit:]] ]]; then
-        sudo kill -15 $mongopid;
-        echo mongod process $mongopid terminated;
-    else
-        echo mongo process $mongopid not exist;
-    fi
-}
-alias mongostop="mongostop_func"
+# Compilation flags
+export CPPFLAGS=-Qunused-arguments
+export CFLAGS=-Qunused-arguments
 
-alias redisstart="redis-server /opt/local/etc/redis.conf"
+# Golang
+export GOBIN=$HOME/code/go/go/bin
+export GOPATH=$HOME/code/go
 
-[[ -s "/Users/kev/.rvm/scripts/rvm" ]] && source "/Users/kev/.rvm/scripts/rvm"
+PATH=$PATH:$GOBIN
+export PATH="$HOME/.rbenv/bin:$PATH"
 
-export VMAIL_VIM=mvim
-export PAGER="col -b | vim -R -c 'set ft=man nomod nolist' -"
-set -o vi
+[ -s "/Users/k/.scm_breeze/scm_breeze.sh" ] && source "/Users/k/.scm_breeze/scm_breeze.sh"
+eval "$(rbenv init -)"
