@@ -2,95 +2,54 @@ set nocompatible               " be iMproved
 
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
-
-"" startup
-Bundle 'molok/vim-scratch'
-Bundle 'chriskempson/base16-vim'
-Bundle 'nanotech/jellybeans.vim'
-Bundle 'dhruvasagar/vim-railscasts-theme'
-Bundle 'tomasr/molokai'
+Plugin 'gmarik/Vundle.vim'
 
 "" Python
-Bundle 'fs111/pydoc.vim'
-" Bundle 'lambdalisue/nose.vim'
-"Bundle 'jmcantrell/vim-virtualenv'
+Plugin 'fs111/pydoc.vim'
 
-"" Ruby
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-rake'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-cucumber'
+"" Lisp
+Plugin 'kovisoft/slimv'
 
-Bundle 'airblade/vim-gitgutter'
-Bundle 'kshenoy/vim-signature'
+"" Git
+"" Show what has changed in the sidebar + ability to stage, revert hunks
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
 
 "" HTML
-Bundle 'gregsexton/MatchTag'
-
-"" CoffeeScript
-""Bundle 'kchmck/vim-coffee-script'
-Bundle 'AndrewRadev/vim-coffee-script'
-
-"" JavaScript
-"Bundle 'jelera/vim-javascript-syntax'
-"Bundle 'maksimr/vim-jsbeautify'
-"" check if no conflict with syntastic
-"Bundle 'joestelmach/lint.vim'
-
-"" node.js
-"" Bundle 'guileen/vim-node'
+Plugin 'gregsexton/MatchTag'
 
 "" css
-Bundle 'cakebaker/scss-syntax.vim'
+Plugin 'cakebaker/scss-syntax.vim'
 
-"" go
-Bundle 'jnwhiteh/vim-golang'
-Bundle 'Blackrush/vim-gocode'
-"Bundle 'nsf/gocode', {'rtp': 'vim'}
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-surround'
 
-Bundle 'AndrewRadev/splitjoin.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'tpope/vim-surround'
-"" Bundle 'sjl/gundo.vim'
-Bundle 'vim-scripts/taglist.vim'
-Bundle 'Raimondi/delimitMate'
-""Bundle 'jpalardy/vim-slime'
-""Bundle 'juanpabloaj/ShowMarks'
-""Bundle 'SirVer/ultisnips'
-
-"" original repos on github
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-"" rubbish install see vim/README.txt
-"Bundle 'Rixius/sparkup', {'rtp': 'vim/'}
-
-"" vim-scripts repos
-"" Bundle 'L9'
-"" Bundle 'FuzzyFinder'
+Plugin 'Lokaltog/vim-easymotion'
 
 "" Navigation
-"" Bundle "jeetsukumaran/vim-buffergator"
-Bundle 'scrooloose/nerdtree'
-Bundle 'ervandew/supertab'
-"" Bundle "Valloric/YouCompleteMe"
-Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'terryma/vim-multiple-cursors'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'scrooloose/nerdtree'
+Plugin 'ervandew/supertab'
+Plugin 'kien/ctrlp.vim'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'terryma/vim-multiple-cursors'
 
 "" Search
-Bundle 'git://github.com/mileszs/ack.vim.git'
+Plugin 'git://github.com/mileszs/ack.vim.git'
 
 "" GPG
-Bundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+Plugin 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 
 " cursor with iterm2
-Bundle 'sjl/vitality.vim'
+Plugin 'sjl/vitality.vim'
+
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " set 256 colors
 set t_Co=256
@@ -103,18 +62,8 @@ set noantialias
 " to beep every few keystrokes
 set vb
 if has("gui_running")
-    "set guifont=Inconsolata-g:h11
-    "set guifont=Terminus:h12
-    "set guifont=Envy\ Code\ R:h12
-    "set guifont=Andale\ Mono:h9
-    "set guifont=ProFontWindows:h11
-    "set guifont=GohuFont:h11
-    "set guifont=Fixed:h13
-    "set guifont=Monaco:h10
     set guifont=fixed-6x13:h13
-    "set guifont=fixed-6x13:h13
     set linespace=0
-
 
     " remove menu and toolbar
     set guioptions-=m
@@ -126,19 +75,12 @@ if has("gui_running")
     set guioptions-=R
 endif
 
-filetype plugin indent on     " required!
-
-let mapleader=','
+nnoremap <SPACE> <Nop>
+let mapleader=" "
 
 inoremap jj <ESC>
 inoremap jk <ESC>
 nnoremap ; :
-
-" ctrl-jklm  changes to that split
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-l> <c-w>l
-noremap <c-h> <c-w>h
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -149,100 +91,28 @@ noremap <leader>vs :vsplit<CR>
 noremap <leader>hs :split<CR>
 " Open NerdTree
 noremap <leader>n :NERDTreeToggle<CR>
-" Open tagbar
-noremap <leader>l :TagbarToggle<CR>
 " Clear highlight
-noremap <leader><space> :nohlsearch<CR>
+noremap <leader>/ :nohlsearch<CR>
 " create taglist
 noremap <leader>gt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
-" Toggle the taglist window
-noremap <leader>lt :TlistToggle
-noremap <leader>st ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+" edit vimrc
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+" source vimrc
 nnoremap <leader>sv :so $MYVIMRC<CR>
-noremap <leader>a :Ack "<C-R><C-W>"<CR>
+noremap <leader>aa :Ack "<C-R><C-W>"<CR>
 
-nnoremap <leader>q viw<esc>a"<esc>hbi"<esc>lel
-nnoremap <leader>sq viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>dq viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>q viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>q= viw<esc>a %><esc>hbi<%= <esc>lel
-nnoremap <leader>b :BuffergatorToggle<cr>
+nnoremap <leader>q% viw<esc>a %}<esc>hbi{% <esc>lel
 nnoremap <leader>r :30winc <<cr>
 nnoremap <leader>a :30winc ><cr>
 
-" nnoremap <silent> <leader>b :set opfunc=AckGroup<CR>g@
-" vnoremap <silent> <leader>b :<C-U>call AckGroup(visualmode(), 1)<CR>
-
-function! AckGroup(type, ...)
-    " save current register
-    let reg_save = @@
-
-    echomsg &selection
-    echomsg a:type
-    echomsg a:0
-
-    " restore current register
-    let @@ = reg_save
-endfunction
-
-" Run specs with ',t' via Gary Bernhardt
-function! RunTests(filename)
-    " Write the file and run tests for the given filename
-    :w
-    :silent !clear
-    if match(a:filename, '\.feature$') != -1
-        exec ":!script/features " . a:filename
-    elseif match(a:filename, '_test\.rb$') != -1
-        exec ":!ruby -Itest " . a:filename
-    else
-        if filereadable("script/test")
-            exec ":!script/test " . a:filename
-        elseif filereadable("Gemfile")
-            exec ":!bundle exec rspec --color " . a:filename
-        else
-            exec ":!rspec --color " . a:filename
-        end
-    end
-endfunction
-
-function! SetTestFile()
-    " Set the spec file that tests will be run for.
-    let t:grb_test_file=@%
-endfunction
-
-function! RunTestFile(...)
-    if a:0
-        let command_suffix = a:1
-    else
-        let command_suffix = 
-    endif
-
-    " Run the tests for the previously-marked file.
-    let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\|_test.rb\)$') != -1
-    if in_test_file
-        call SetTestFile()
-    elseif !exists("t:grb_test_file")
-        return
-    end
-    call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-    let spec_line_number = line('.')
-    call RunTestFile(":" . spec_line_number . " -b")
-endfunction
-
-" run test runner
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-
-"let g:html_indent_inctags = "html,body,head,tbody"
-
+set relativenumber
 set number
-
 " Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
 set nostartofline           " Avoid moving cursor to BOL when jumping around
-set virtualedit=block       " Let cursor move past the last char in <C-v> mode
 set scrolloff=3             " Keep 3 context lines above and below the cursor
 set backspace=2             " Allow backspacing over autoindent, EOL, and BOL
 set showmatch               " Briefly jump to a parent once it's balanced
@@ -268,7 +138,6 @@ set report=0                " : commands always print changed line count.
 set shortmess+=a            " Use [+]/[RO]/[w] for modified/readonly/written.
 set ruler                   " Show some info, even without statuslines.
 set laststatus=2            " Always show statusline, even if only 1 window.
-set statusline=[%l,%v\ %P%M]\ %f\ %r%h%w\ (%{&ff})\ %{fugitive#statusline()}
 
 ""status
 set statusline=(%n)
@@ -293,9 +162,6 @@ let &colorcolumn="80,".join(range(90,999),",")
 
 let loaded_matchparen = 1
 let g:syntastic_python_checkers=['flake8', 'pep8']
-
-" Resize splits when the window is resized
-"" au VimResized * :wincmd =
 
 " Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
@@ -338,3 +204,6 @@ au BufRead *.erb set filetype=html
 au FileType go set expandtab!
 au FileType go set listchars=tab:\ \ 
 au FileType go hi SpecialKey guibg=NONE
+
+" github
+au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
