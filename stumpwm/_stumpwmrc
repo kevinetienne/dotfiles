@@ -1,0 +1,28 @@
+(in-package :stumpwm)
+
+(set-font "-terminus-fixed-medium-r-normal-*-13-*-*-*-*-*-*-*")
+
+(setf *mouse-focus-policy* :sloppy)
+
+(defcommand lock-screen () ()
+  (run-shell-command "exec /usr/bin/xscreensaver-command -lock"))
+
+(define-key *root-map* (kbd "c") "exec termite")
+(define-key *root-map* (kbd "C-c") "exec termite")
+(define-key *root-map* (kbd "C-f") "exec firefox-developer")
+(define-key *root-map*  (kbd "j") "lock-screen")
+(define-key *root-map*  (kbd "M-a") (message "~a" (run-shell-command "acpi")))
+
+
+;; mode line
+(stumpwm:toggle-mode-line (stumpwm:current-screen)
+                          (stumpwm:current-head))
+(setf stumpwm:*screen-mode-line-format*
+      (list "%w | "
+                  '(:eval (run-shell-command "date" t))))
+
+(setf *mode-line-background-color* "black")
+
+(run-shell-command "xsetroot -cursor_name left_ptr -gray -fg darkgreen -bg black -name root-window")
+
+(run-shell-command "feh --randomize --bg-fill ~/.wallpaper/*")
