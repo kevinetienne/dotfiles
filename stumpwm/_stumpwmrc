@@ -5,7 +5,7 @@
 (setf *mouse-focus-policy* :sloppy)
 
 (defcommand lock-screen () ()
-  (run-shell-command "exec /usr/bin/xscreensaver-command -lock"))
+  (run-or-raise "exec /usr/bin/xscreensaver-command -lock" '(:class "xscreensaver")))
 
 (define-key *root-map* (kbd "c") "exec termite")
 (define-key *root-map* (kbd "C-c") "exec termite")
@@ -26,3 +26,5 @@
 (run-shell-command "xsetroot -cursor_name left_ptr -gray -fg darkgreen -bg black -name root-window")
 
 (run-shell-command "feh --randomize --bg-fill ~/.wallpaper/*")
+
+(run-shell-command "xscreensaver-command -exit; killall xscreensaver 2>/dev/null; xscreensaver -no-splash")
