@@ -11,7 +11,7 @@
 (define-key *root-map* (kbd "C-c") "exec termite")
 (define-key *root-map* (kbd "C-f") "exec firefox-developer")
 (define-key *root-map*  (kbd "j") "lock-screen")
-(define-key *root-map*  (kbd "M-a") (message "~a" (run-shell-command "acpi")))
+(define-key *root-map*  (kbd "(") "loadrc")
 
 
 ;; mode line
@@ -19,7 +19,7 @@
                           (stumpwm:current-head))
 (setf stumpwm:*screen-mode-line-format*
       (list "%w | "
-                  '(:eval (run-shell-command "date" t))))
+                  '(:eval (run-shell-command "date +'%a %d %b %T'" t))))
 
 (setf *mode-line-background-color* "black")
 
