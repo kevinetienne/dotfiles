@@ -2,53 +2,53 @@ set nocompatible               " be iMproved
 
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
 " let Vundle manage Vundle
 " required!
-Plugin 'gmarik/Vundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'
 
 "" Python
-Plugin 'fs111/pydoc.vim'
+NeoBundle 'fs111/pydoc.vim'
 
 "" Lisp
-Plugin 'kovisoft/slimv'
+NeoBundle 'kovisoft/slimv'
 
 "" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
-Plugin 'airblade/vim-gitgutter'
-Plugin 'tpope/vim-fugitive'
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
 
 "" HTML
-Plugin 'gregsexton/MatchTag'
+NeoBundle 'gregsexton/MatchTag'
 
 "" css
-Plugin 'cakebaker/scss-syntax.vim'
+NeoBundle 'cakebaker/scss-syntax.vim'
 
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'tpope/vim-surround'
+NeoBundle 'AndrewRadev/splitjoin.vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'tpope/vim-surround'
 
-Plugin 'Lokaltog/vim-easymotion'
+NeoBundle 'Lokaltog/vim-easymotion'
 
 "" Navigation
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'scrooloose/nerdtree'
-Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'terryma/vim-multiple-cursors'
+NeoBundle 'jeetsukumaran/vim-buffergator'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'ervandew/supertab'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'terryma/vim-multiple-cursors'
 
 "" Search
-Plugin 'git://github.com/mileszs/ack.vim.git'
+NeoBundle 'git://github.com/mileszs/ack.vim.git'
 
 "" GPG
-Plugin 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+NeoBundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
 
 " cursor with iterm2
-Plugin 'sjl/vitality.vim'
+NeoBundle 'sjl/vitality.vim'
 
-call vundle#end()            " required
+call neobundle#end()            " required
 filetype plugin indent on    " required
 
 " set 256 colors
