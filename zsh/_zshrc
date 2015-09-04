@@ -25,40 +25,21 @@ alias pmsu='pm createsuperuser'
 alias mkv='mkvirtualenv'
 
 alias py='python'
-alias py3='python3.4'
+alias py3='python3'
 
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 # export MANPATH="/usr/local/man:$MANPATH"
 
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='mvim'
-fi
+export EDITOR='vim'
 
 export WORKON_HOME=$HOME/.envs
-export PROJECT_HOME=$HOME/code
+export PROJECT_HOME=$HOME/code/python/
 export VIRTUALENVWRAPPER_SCRIPT=/usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper_lazy.sh
-
-# amazon
-export AWS_ACCESS_KEY_ID=''
-export AWS_SECRET_ACCESS_KEY=''
-
-# google
-export GOOGLE_OAUTH2_CLIENT_ID=''
-export GOOGLE_OAUTH2_CLIENT_SECRET=''
+source /usr/local/bin/virtualenvwrapper.sh
 
 # Set colors to match iTerm2 Terminal Colors
 export TERM=xterm-256color
-
-#django
-export DEBUG=True
-export STATIC_URL='/static/'
-export DEFAULT_FILE_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
-export STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # geodjango
 # GDAL_LIBRARY_PATH="/Applications/Postgres.app/Contents/MacOS/lib/libgdal.dylib"
@@ -69,12 +50,18 @@ export STATICFILES_STORAGE='django.contrib.staticfiles.storage.StaticFilesStorag
 export CPPFLAGS=-Qunused-arguments
 export CFLAGS=-Qunused-arguments
 
-# Golang
-export GOBIN=$HOME/code/go/go/bin
-export GOPATH=$HOME/code/go
-
 PATH=$PATH:$GOBIN
 export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH=/Applications/Postgres.app/Contents/Versions/9.3/bin/:$PATH
+export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin
 
-[ -s "/Users/k/.scm_breeze/scm_breeze.sh" ] && source "/Users/k/.scm_breeze/scm_breeze.sh"
 eval "$(rbenv init -)"
+
+[ -s "/Users/kevin/.scm_breeze/scm_breeze.sh" ] && source "/Users/kevin/.scm_breeze/scm_breeze.sh"
+
+# added by travis gem
+[ -f /Users/kevin/.travis/travis.sh ] && source /Users/kevin/.travis/travis.sh
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"

@@ -141,7 +141,7 @@ set laststatus=2            " Always show statusline, even if only 1 window.
 
 ""status
 set statusline=(%n)
-set statusline+=[%t]       "tail of the filename
+set statusline+=[%f]       "tail of the filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}] "file format
 set statusline+=%h      "help file flag
@@ -158,7 +158,7 @@ set listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set fillchars=diff:⣿,vert:│
 set list
 let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="80,".join(range(90,999),",")
+let &colorcolumn="80,".join(range(91,999),",")
 
 let loaded_matchparen = 1
 let g:syntastic_python_checkers=['flake8', 'pep8']
