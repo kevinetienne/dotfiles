@@ -35,7 +35,7 @@ NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'jeetsukumaran/vim-buffergator'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'ervandew/supertab'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'terryma/vim-multiple-cursors'
 
