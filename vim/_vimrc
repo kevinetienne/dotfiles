@@ -14,6 +14,12 @@ NeoBundle 'fs111/pydoc.vim'
 "" Lisp
 NeoBundle 'kovisoft/slimv'
 
+"" Clojure
+NeoBundle 'guns/vim-clojure-static'
+NeoBundle 'tpope/vim-fireplace'
+NeoBundle 'jbnicolai/rainbow_parentheses.vim'
+NeoBundle 'guns/vim-clojure-highlight'
+
 "" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
 NeoBundle 'airblade/vim-gitgutter'
@@ -207,3 +213,12 @@ au FileType go hi SpecialKey guibg=NONE
 
 " github
 au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+
+" LISP
+au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+" clojure
+autocmd VimEnter *       RainbowParenthesesToggle
+autocmd Syntax   clojure RainbowParenthesesLoadRound
+autocmd Syntax   clojure RainbowParenthesesLoadSquare
+autocmd Syntax   clojure RainbowParenthesesLoadBraces
