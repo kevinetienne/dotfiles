@@ -68,3 +68,8 @@
             (setq-default indent-tabs-mode nil)
             (setq-default python-indent 8)
             (setq-default tab-width 4)))
+
+(require 'mouse)
+(xterm-mouse-mode t)
+(defun track-mouse (e))
+(setq mouse-sel-mode)
