@@ -62,3 +62,9 @@
 (set-face-attribute 'whitespace-space nil :background nil :foreground "gray30")
 (setq-default indent-tabs-mode nil)
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq-default indent-tabs-mode nil)
+            (setq-default python-indent 8)
+            (setq-default tab-width 4)))
