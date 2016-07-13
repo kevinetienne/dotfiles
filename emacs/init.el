@@ -27,7 +27,7 @@
     ;; python
     anaconda-mode
 
-    relative-line-numbers
+    linum-relative
 
     evil
     evil-visualstar
@@ -42,13 +42,9 @@
 (load-theme 'zenburn t)
 (menu-bar-mode -1)
 
-(global-relative-line-numbers-mode)
-(defun abs-rel-numbers (offset)
-  (if (= offset 0)
-      (format "%3d " (line-number-at-pos))
-    (format "%3d " (abs offset))))
-
-(setq relative-line-numbers-format #'abs-rel-numbers)
+(require 'linum-relative)
+(global-linum-mode)
+(linum-relative-toggle)
 
 ;; evil mode
 (require 'evil)
