@@ -27,6 +27,8 @@
     ;; python
     anaconda-mode
 
+    relative-line-numbers
+
     evil
     evil-visualstar
     evil-leader))
@@ -40,7 +42,13 @@
 (load-theme 'zenburn t)
 (menu-bar-mode -1)
 
-(global-linum-mode)
+(global-relative-line-numbers-mode)
+(defun abs-rel-numbers (offset)
+  (if (= offset 0)
+      (format "%3d " (line-number-at-pos))
+    (format "%3d " (abs offset))))
+
+(setq relative-line-numbers-format #'abs-rel-numbers)
 
 ;; evil mode
 (require 'evil)
@@ -60,6 +68,7 @@
 (require 'whitespace)
 (global-whitespace-mode 1)
 (set-face-attribute 'whitespace-space nil :background nil :foreground "gray30")
+
 (setq-default indent-tabs-mode nil)
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
 
