@@ -21,11 +21,14 @@
   (package-refresh-contents))
 
 (defvar my-packages
-  '(;; colorful parenthesis matching
+  '(exec-path-from-shell
+
+    ;; colorful parenthesis matching
     rainbow-delimiters
 
     ;; python
-    anaconda-mode
+    virtualenvwrapper
+    jedi
 
     linum-relative
 
@@ -37,10 +40,14 @@
   (when (not (package-installed-p p))
     (package-install p)))
 
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
 (menu-bar-mode -1)
+(tool-bar-mode -1)
 
 (require 'linum-relative)
 (global-linum-mode)
@@ -58,7 +65,13 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; python
-(add-hook 'python-mode-hook 'anaconda-mode)
+(require 'virtualenvwrapper)
+(venv-initialize-interactive-shells)
+(venv-initialize-eshell)
+(setq venv-location "/Users/kevin/.envs")
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:complete-on-dot t)
 
 ;; whitespace mode
 (require 'whitespace)
