@@ -29,12 +29,16 @@
     ;; python
     virtualenvwrapper
     jedi
+    flycheck
 
     linum-relative
+    fill-column-indicator
 
     evil
     evil-visualstar
-    evil-leader))
+    evil-leader
+
+    git-gutter))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -43,11 +47,27 @@
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 
+;; general config
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
+
 (menu-bar-mode -1)
 (tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+(setq column-number-mode t)
+(recentf-mode 1)
+(global-hl-line-mode 1)
+
+(show-paren-mode 1)
+(electric-pair-mode 1)
+
+(require 'fill-column-indicator)
+(setq-default fci-rule-column 90)
+(setq fci-rule-width 1)
+(setq fci-rule-color "grey80")
+(add-hook 'after-change-major-mode-hook 'fci-mode)
 
 (require 'linum-relative)
 (global-linum-mode)
@@ -68,7 +88,8 @@
 (require 'virtualenvwrapper)
 (venv-initialize-interactive-shells)
 (venv-initialize-eshell)
-(setq venv-location "/Users/kevin/.envs")
+(setq venv-location "/Users/k/.virtualenvs")
+(global-flycheck-mode)
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
@@ -89,5 +110,20 @@
 
 (require 'mouse)
 (xterm-mouse-mode t)
-(defun track-mouse (e))
-(setq mouse-sel-mode)
+
+(global-git-gutter-mode +1)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (fill-column-indicator virtualenvwrapper rainbow-delimiters linum-relative jedi flycheck exec-path-from-shell evil-visualstar evil-leader))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
