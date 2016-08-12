@@ -38,7 +38,9 @@
     evil-visualstar
     evil-leader
 
-    git-gutter))
+    git-gutter
+
+    ag))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -112,6 +114,8 @@
 (xterm-mouse-mode t)
 
 (global-git-gutter-mode +1)
+
+(require 'ag)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
