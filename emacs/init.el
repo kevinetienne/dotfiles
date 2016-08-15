@@ -38,6 +38,8 @@
     evil-visualstar
     evil-leader
 
+    smex
+
     git-gutter
 
     ag))
@@ -116,6 +118,10 @@
 (global-git-gutter-mode +1)
 
 (require 'ag)
+
+(require 'smex)
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
