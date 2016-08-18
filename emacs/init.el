@@ -70,13 +70,18 @@
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 90)
 (setq fci-rule-width 1)
-(setq fci-rule-color "grey80")
+(setq fci-rule-color "grey10")
 (add-hook 'after-change-major-mode-hook 'fci-mode)
 
 (require 'linum-relative)
 (global-linum-mode)
 (linum-relative-toggle)
 
+(advice-add 'linum-relative :filter-return
+            (lambda (num)
+              (if (not (get-text-property 0 'invisible num))
+                  (propertize (replace-regexp-in-string " " "\u2002" num)
+                              'face (get-text-property 0 'face num)))))
 ;; evil mode
 (require 'evil)
 (evil-mode 1)
@@ -101,7 +106,7 @@
 ;; whitespace mode
 (require 'whitespace)
 (global-whitespace-mode 1)
-(set-face-attribute 'whitespace-space nil :background nil :foreground "gray30")
+(set-face-attribute 'whitespace-space nil :background nil :foreground "gray10")
 
 (setq-default indent-tabs-mode nil)
 (setq whitespace-style '(face spaces tabs space-mark tab-mark))
