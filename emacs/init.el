@@ -23,6 +23,10 @@
 (defvar my-packages
   '(exec-path-from-shell
 
+    smartparens
+
+    auto-complete
+
     ;; colorful parenthesis matching
     rainbow-delimiters
 
@@ -30,6 +34,16 @@
     virtualenvwrapper
     jedi
     flycheck
+
+    ;; clojure
+    clojure-mode
+    clojure-mode-extra-font-locking
+    cider
+    ac-cider
+    clj-refactor
+
+    ;; html
+    tagedit
 
     linum-relative
     fill-column-indicator
@@ -127,6 +141,30 @@
 (require 'smex)
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
+
+(ac-config-default)
+
+(require 'ac-cider)
+(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
+(add-hook 'cider-mode-hook 'ac-cider-setup)
+(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
+(eval-after-load "auto-complete"
+  '(progn
+     (add-to-list 'ac-modes 'cider-mode)
+     (add-to-list 'ac-modes 'cider-repl-mode)))
+
+(require 'smartparens-config)
+(add-hook 'clojure-mode #'smartparens-mode)
+
+(require 'clj-refactor)
+
+(defun my-clojure-mode-hook ()
+  (clj-refactor-mode 1)
+  (yas-minor-mode 1) ; for adding require/use/import statements
+  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
+  (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
