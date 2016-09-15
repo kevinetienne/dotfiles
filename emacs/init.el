@@ -78,6 +78,8 @@
 (recentf-mode 1)
 (global-hl-line-mode 1)
 
+(setq require-final-newline t)
+
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
