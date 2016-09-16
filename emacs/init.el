@@ -70,6 +70,7 @@
 (add-to-list 'load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
 
+(setq inhibit-startup-screen t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
@@ -130,7 +131,7 @@
 (add-hook 'python-mode-hook
           (lambda ()
             (setq-default indent-tabs-mode nil)
-            (setq-default python-indent 8)
+            (setq-default python-indent 4)
             (setq-default tab-width 4)))
 
 (require 'mouse)
