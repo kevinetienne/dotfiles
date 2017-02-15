@@ -51,6 +51,7 @@
     evil
     evil-visualstar
     evil-leader
+    evil-surround
 
     smex
 
@@ -168,6 +169,9 @@
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+
+(require 'evil-surround)
+(global-evil-surround-mode 1)
 
 (add-to-list 'auto-mode-alist
              '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
