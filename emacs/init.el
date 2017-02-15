@@ -118,6 +118,7 @@
 (setq venv-location "/Users/k/.virtualenvs")
 (global-flycheck-mode)
 
+(require 'jedi)
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
