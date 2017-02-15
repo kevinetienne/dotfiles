@@ -85,6 +85,8 @@
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+(global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
+
 (require 'fill-column-indicator)
 (setq-default fci-rule-column 90)
 (setq fci-rule-width 1)
