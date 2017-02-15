@@ -122,14 +122,6 @@
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 
-;; whitespace mode
-(require 'whitespace)
-(global-whitespace-mode 1)
-(set-face-attribute 'whitespace-space nil :background nil :foreground "gray10")
-
-(setq-default indent-tabs-mode nil)
-(setq whitespace-style '(face spaces tabs space-mark tab-mark))
-
 (add-hook 'python-mode-hook
           (lambda ()
             (setq-default indent-tabs-mode nil)
