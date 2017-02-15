@@ -96,6 +96,7 @@
 (require 'linum-relative)
 (global-linum-mode)
 (linum-relative-toggle)
+(setq linum-relative-current-symbol "")
 
 (advice-add 'linum-relative :filter-return
             (lambda (num)
