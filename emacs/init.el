@@ -38,6 +38,10 @@
     ac-cider
     clj-refactor
 
+    ;; ruby
+    enh-ruby-mode
+    robe
+
     ;; html
     tagedit
 
@@ -164,6 +168,12 @@
   (cljr-add-keybindings-with-prefix "C-c C-m"))
 
 (add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+
+(add-to-list 'auto-mode-alist
+             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
+(require 'robe)
+(add-hook 'ruby-mode-hook 'robe-mode)
+(add-hook 'robe-mode-hook 'ac-robe-setup)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
