@@ -70,6 +70,8 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (add-to-list 'load-path "~/.emacs.d/themes")
 (load-theme 'zenburn t)
+(set-background-color "#242424")
+(set-foreground-color "#f6f3e8")
 
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
