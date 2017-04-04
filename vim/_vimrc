@@ -20,6 +20,12 @@ NeoBundle 'tpope/vim-fireplace'
 NeoBundle 'jbnicolai/rainbow_parentheses.vim'
 NeoBundle 'guns/vim-clojure-highlight'
 
+"" Ruby
+NeoBundle 'fatih/vim-go'
+
+"" Go
+NeoBundle 'vim-ruby/vim-ruby'
+
 "" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
 NeoBundle 'airblade/vim-gitgutter'
@@ -34,6 +40,7 @@ NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'AndrewRadev/splitjoin.vim'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'Lokaltog/vim-easymotion'
 
@@ -46,10 +53,10 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'terryma/vim-multiple-cursors'
 
 "" Search
-NeoBundle 'git://github.com/mileszs/ack.vim.git'
+NeoBundle 'https://github.com/mileszs/ack.vim.git'
 
 "" GPG
-NeoBundle 'git://gitorious.org/vim-gnupg/vim-gnupg.git'
+NeoBundle 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
 
 " cursor with iterm2
 NeoBundle 'sjl/vitality.vim'
@@ -59,7 +66,6 @@ filetype plugin indent on    " required
 
 " set 256 colors
 set t_Co=256
-set background=dark
 colorscheme wombat256
 syntax on
 
@@ -79,6 +85,13 @@ if has("gui_running")
     set guioptions-=L
     set guioptions-=r
     set guioptions-=R
+endif
+
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
 endif
 
 nnoremap <SPACE> <Nop>
@@ -111,8 +124,6 @@ nnoremap <leader>dq viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>q viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>q= viw<esc>a %><esc>hbi<%= <esc>lel
 nnoremap <leader>q% viw<esc>a %}<esc>hbi{% <esc>lel
-nnoremap <leader>r :30winc <<cr>
-nnoremap <leader>a :30winc ><cr>
 
 set relativenumber
 set number
@@ -163,12 +174,12 @@ set statusline+=\ %P    "percent through file
 set listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set fillchars=diff:⣿,vert:│
 set list
-let &colorcolumn=join(range(81,999),",")
-let &colorcolumn="80,".join(range(91,999),",")
+let &colorcolumn=join(range(90,999),",")
+let &colorcolumn="80,".join(range(120,999),",")
 
 let loaded_matchparen = 1
 let g:syntastic_python_checkers=['flake8', 'pep8']
-
+let g:syntastic_ruby_checkers = ['rubocop', 'reek', 'mri']
 " Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
@@ -191,14 +202,14 @@ au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
 au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
 
 " JavaScript
-au FileType javascript setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4
+au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 " html/css
 au FileType jade set omnifunc=javascriptcomplete#CompleteJS
 au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType html setlocal expandtab shiftwidth=4 softtabstop=4
+au FileType html setlocal expandtab shiftwidth=2 softtabstop=2
 au FileType css set omnifunc=csscomplete#CompleteCSS
 au FileType css setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 au FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
@@ -222,3 +233,7 @@ autocmd VimEnter *       RainbowParenthesesToggle
 autocmd Syntax   clojure RainbowParenthesesLoadRound
 autocmd Syntax   clojure RainbowParenthesesLoadSquare
 autocmd Syntax   clojure RainbowParenthesesLoadBraces
+
+" go
+au FileType go nmap <leader>r <Plug>(go-run)
+autocmd VimEnter *       RainbowParenthesesToggle
