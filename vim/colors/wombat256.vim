@@ -11,15 +11,15 @@ set background=dark
 
 hi clear
 
-if exists("syntax_on")
-	syntax reset
-endif
+" if exists("syntax_on")
+" 	syntax reset
+" endif
 
 let colors_name = "wombat256"
 
 
 " General colors
-hi Normal		ctermfg=254		ctermbg=234		cterm=none		guifg=#f6f3e8	guibg=#242424	gui=none
+hi Normal		ctermfg=251		ctermbg=234		cterm=none		guifg=#f6f3e8	guibg=#242424	gui=none
 hi Cursor		ctermfg=none	ctermbg=241		cterm=none		guifg=NONE		guibg=#656565	gui=none
 hi Visual		ctermfg=7		ctermbg=238		cterm=none		guifg=#f6f3e8	guibg=#444444	gui=none
 " hi VisualNOS
@@ -34,13 +34,10 @@ hi SpecialKey	ctermfg=244		ctermbg=234		cterm=none		guifg=#808080	guibg=#343434	
 hi NonText		ctermfg=244		ctermbg=235		cterm=none		guifg=#808080	guibg=#303030	gui=none
 hi ColorColumn guibg=#2d2d2d ctermbg=236
 
-" Vim >= 7.0 specific colors
-if version >= 700
-hi CursorLine					ctermbg=238		cterm=none						guibg=#2d2d2d
+hi CursorLine					ctermbg=237		cterm=none						guibg=#2d2d2d
 hi MatchParen	ctermfg=7		ctermbg=243		cterm=bold		guifg=#f6f3e8	guibg=#857b6f	gui=bold
 hi Pmenu		ctermfg=7		ctermbg=238						guifg=#f6f3e8	guibg=#444444
 hi PmenuSel		ctermfg=0		ctermbg=192						guifg=#000000	guibg=#cae682
-endif
 
 
 " Syntax highlighting
@@ -49,9 +46,9 @@ hi Statement	ctermfg=111		cterm=none		guifg=#8ac6f2	gui=none
 hi Constant		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
 hi Number		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
 hi PreProc		ctermfg=173		cterm=none		guifg=#e5786d	gui=none
-hi Function		ctermfg=192		cterm=none		guifg=#cae682	gui=none
+hi Function		ctermfg=191		cterm=none		guifg=#cae682	gui=none
 hi Identifier	ctermfg=192		cterm=none		guifg=#cae682	gui=none
-hi Type			ctermfg=192		cterm=none		guifg=#cae682	gui=none
+hi Type			ctermfg=193		cterm=none		guifg=#cae682	gui=none
 hi Special		ctermfg=194		cterm=none		guifg=#e7f6da	gui=none
 hi String		ctermfg=113		cterm=none		guifg=#95e454	gui=italic
 hi Comment		ctermfg=246		cterm=none		guifg=#99968b	gui=italic
