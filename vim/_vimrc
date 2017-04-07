@@ -2,67 +2,72 @@ set nocompatible               " be iMproved
 
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
-" let Vundle manage Vundle
-" required!
-NeoBundleFetch 'Shougo/neobundle.vim'
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
 
-"" Python
-NeoBundle 'fs111/pydoc.vim'
+if dein#load_state('~/.vim/bundles')
+  call dein#begin('~/.vim/bundles')
 
-"" Lisp
-NeoBundle 'kovisoft/slimv'
+  " Let dein manage dein
+  call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
-"" Clojure
-NeoBundle 'guns/vim-clojure-static'
-NeoBundle 'tpope/vim-fireplace'
-NeoBundle 'jbnicolai/rainbow_parentheses.vim'
-NeoBundle 'guns/vim-clojure-highlight'
+  "" Python
+  call dein#add('fs111/pydoc.vim')
 
-"" Ruby
-NeoBundle 'fatih/vim-go'
+  "" Lisp
+  call dein#add('kovisoft/slimv')
 
-"" Go
-NeoBundle 'vim-ruby/vim-ruby'
+  "" Clojure
+  call dein#add('guns/vim-clojure-static')
+  call dein#add('tpope/vim-fireplace')
+  call dein#add('jbnicolai/rainbow_parentheses.vim')
+  call dein#add('guns/vim-clojure-highlight')
 
-"" Git
-"" Show what has changed in the sidebar + ability to stage, revert hunks
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'tpope/vim-fugitive'
+  "" Ruby
+  call dein#add('vim-ruby/vim-ruby')
 
-"" HTML
-NeoBundle 'gregsexton/MatchTag'
+  "" Go
+  call dein#add('fatih/vim-go')
 
-"" css
-NeoBundle 'cakebaker/scss-syntax.vim'
+  "" Git
+  "" Show what has changed in the sidebar + ability to stage, revert hunks
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('tpope/vim-fugitive')
 
-NeoBundle 'AndrewRadev/splitjoin.vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'jiangmiao/auto-pairs'
+  "" HTML
+  call dein#add('gregsexton/MatchTag')
 
-NeoBundle 'Lokaltog/vim-easymotion'
+  "" css
+  call dein#add('cakebaker/scss-syntax.vim')
 
-"" Navigation
-NeoBundle 'jeetsukumaran/vim-buffergator'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'ervandew/supertab'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'terryma/vim-multiple-cursors'
+  call dein#add('AndrewRadev/splitjoin.vim')
+  call dein#add('scrooloose/syntastic')
+  call dein#add('tpope/vim-surround')
+  call dein#add('jiangmiao/auto-pairs')
 
-"" Search
-NeoBundle 'https://github.com/mileszs/ack.vim.git'
+  call dein#add('Lokaltog/vim-easymotion')
 
-"" GPG
-NeoBundle 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
+  "" Navigation
+  call dein#add('jeetsukumaran/vim-buffergator')
+  call dein#add('scrooloose/nerdtree')
+  call dein#add('ervandew/supertab')
+  call dein#add('ctrlpvim/ctrlp.vim')
+  call dein#add('scrooloose/nerdcommenter')
 
-" cursor with iterm2
-NeoBundle 'sjl/vitality.vim'
+  "" Search
+  call dein#add('https://github.com/mileszs/ack.vim.git')
 
-call neobundle#end()            " required
-filetype plugin indent on    " required
+  "" GPG
+  call dein#add('https://gitorious.org/vim-gnupg/vim-gnupg.git')
+
+  " cursor with iterm2
+  call dein#add('sjl/vitality.vim')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
+endif
+
+filetype plugin indent on
 
 " set 256 colors
 set t_Co=256
