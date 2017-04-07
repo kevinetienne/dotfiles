@@ -117,6 +117,7 @@ noremap <leader>hs :split<CR>
 noremap <leader>n :NERDTreeToggle<CR>
 " Clear highlight
 noremap <leader>/ :nohlsearch<CR>
+vnoremap // y/<C-R>"<CR>
 " create taglist
 noremap <leader>gt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
 " edit vimrc
