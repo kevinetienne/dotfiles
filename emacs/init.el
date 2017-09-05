@@ -1,181 +1,160 @@
-(require 'package)
-(add-to-list 'package-archives
-             '("marmalade" . "http://marmalade-repo.org/packages/") t)
-(add-to-list 'package-archives
-             '("tromey" . "http://tromey.com/elpa/") t)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
-
-;; Load and activate emacs packages. This also sets the load path.
-(package-initialize)
-
-;; Download the ELPA archive description if needed.
-;; This informs Emacs about the latest versions of all packages, and
-;; makes them available for download.
-(when (not package-archive-contents)
-  (package-refresh-contents))
-
-(defvar my-packages
-  '(exec-path-from-shell
-
-    smartparens
-
-    auto-complete
-
-    ;; colorful parenthesis matching
-    rainbow-delimiters
-
-    ;; python
-    virtualenvwrapper
-    jedi
-    flycheck
-
-    ;; clojure
-    clojure-mode
-    clojure-mode-extra-font-locking
-    cider
-    ac-cider
-    clj-refactor
-
-    ;; ruby
-    enh-ruby-mode
-    robe
-
-    ;; html
-    tagedit
-
-    linum-relative
-    fill-column-indicator
-
-    evil
-    evil-visualstar
-    evil-leader
-    evil-surround
-
-    smex
-
-    git-gutter
-
-    ag))
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
-
-(when (memq window-system '(mac ns))
-  (exec-path-from-shell-initialize))
-
-;; general config
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(add-to-list 'load-path "~/.emacs.d/themes")
-(load-theme 'zenburn t)
-(set-background-color "#242424")
-(set-foreground-color "#f6f3e8")
-
 (setq inhibit-startup-screen t)
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-
+(savehist-mode 1)
+(ido-mode t)
+(ido-everywhere t)
+(setq ido-enable-flex-matching t)
+(setq ido-use-filename-at-point nil)
+(setq ido-auto-merge-work-directories-length -1)
+(setq ido-use-virtual-buffers t)
 (setq column-number-mode t)
-(recentf-mode 1)
-(global-hl-line-mode 1)
-
-(setq require-final-newline t)
-
-(show-paren-mode 1)
-(electric-pair-mode 1)
-
 (global-set-key (kbd "M-3") '(lambda () (interactive) (insert "#")))
 
-(require 'fill-column-indicator)
-(setq-default fci-rule-column 90)
-(setq fci-rule-width 1)
-(setq fci-rule-color "grey10")
-(add-hook 'after-change-major-mode-hook 'fci-mode)
+(add-to-list 'default-frame-alist
+	     '(font . "InputMono Thin-12"))
 
-(require 'linum-relative)
-(global-linum-mode)
-(linum-relative-toggle)
-(setq linum-relative-current-symbol "")
 
-(advice-add 'linum-relative :filter-return
-            (lambda (num)
-              (if (not (get-text-property 0 'invisible num))
-                  (propertize (replace-regexp-in-string " " "\u2002" num)
-                              'face (get-text-property 0 'face num)))))
-;; evil mode
-(require 'evil)
-(evil-mode 1)
-(global-evil-visualstar-mode)
-(global-evil-leader-mode)
-(evil-leader/set-leader ",")
+(setq package-enable-at-startup nil)
+(setq package-archives '(("org"       . "http://orgmode.org/elpa/")
+                         ("gnu"       . "http://elpa.gnu.org/packages/")
+                         ("melpa"     . "https://melpa.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+(package-initialize)
 
-;; rainbow-delimeters
-(require 'rainbow-delimiters)
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(unless (package-installed-p 'use-package) ; unless it is already installed
+  (package-refresh-contents) ; updage packages archive
+  (package-install 'use-package)) ; and install the most recent version of use-package
 
-;; python
-(require 'virtualenvwrapper)
-(venv-initialize-interactive-shells)
-(venv-initialize-eshell)
-(setq venv-location "/Users/k/.virtualenvs")
-(global-flycheck-mode)
+(require 'use-package)
+(use-package which-key
+  :ensure t
+  :init (which-key-mode))
 
-(require 'jedi)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
+(use-package zenburn-theme
+  :ensure t
+  :config
+  (load-theme 'zenburn t))
+(add-to-list 'default-frame-alist '(background-color . "#2e2d2b"))
 
-(add-hook 'python-mode-hook
-          (lambda ()
-            (setq-default indent-tabs-mode nil)
-            (setq-default python-indent 4)
-            (setq-default tab-width 4)))
+(use-package exec-path-from-shell
+  :ensure t
+  :init
+ (when (memq window-system '(mac ns))
+   (exec-path-from-shell-initialize))
+ (load (expand-file-name "~/.roswell/helper.el"))
+ (load (expand-file-name "~/.roswell/lisp/quicklisp/slime-helper.el"))
+ (setq inferior-lisp-program "ros -Q run"))
 
-(require 'mouse)
-(xterm-mouse-mode t)
+(use-package slim-mode
+  :ensure t)
 
-(global-git-gutter-mode +1)
+(use-package projectile
+  :ensure t
+  :config
+  (projectile-mode))
 
-(require 'ag)
+(use-package ido-vertical-mode
+  :ensure t
+  :config
+  (ido-vertical-mode 1)
+  (setq ido-vertical-define-keys 'C-n-and-C-p-only))
 
-(require 'smex)
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
+(use-package ido-completing-read+
+  :ensure t
+  :config
+  (ido-ubiquitous-mode 1))
 
-(ac-config-default)
+(use-package evil
+  :ensure t
+  :config
+  (evil-mode 1)
+  (define-key evil-normal-state-map (kbd "<down-mouse-1>") nil)
+  (setq evil-want-fine-undo t)
 
-(require 'ac-cider)
-(add-hook 'cider-mode-hook 'ac-flyspell-workaround)
-(add-hook 'cider-mode-hook 'ac-cider-setup)
-(add-hook 'cider-repl-mode-hook 'ac-cider-setup)
-(eval-after-load "auto-complete"
-  '(progn
-     (add-to-list 'ac-modes 'cider-mode)
-     (add-to-list 'ac-modes 'cider-repl-mode)))
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    (evil-leader/set-leader "<SPC>"))
 
-(require 'smartparens-config)
-(add-hook 'clojure-mode #'smartparens-mode)
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode)))
 
-(require 'clj-refactor)
+(use-package linum-relative
+  :ensure t
+  :init
+  (setq linum-relative-current-symbol "")
+  :config
+  (global-linum-mode t)
+  (linum-relative-toggle))
 
-(defun my-clojure-mode-hook ()
-  (clj-refactor-mode 1)
-  (yas-minor-mode 1) ; for adding require/use/import statements
-  ;; This choice of keybinding leaves cider-macroexpand-1 unbound
-  (cljr-add-keybindings-with-prefix "C-c C-m"))
+(use-package neotree
+  :ensure t
+  :init
+  (setq neo-theme 'ascii)
+  :config
+  (require 'neotree))
 
-(add-hook 'clojure-mode-hook #'my-clojure-mode-hook)
+(use-package auto-complete
+  :ensure t
+  :config
+  (ac-config-default))
 
-(require 'evil-surround)
-(global-evil-surround-mode 1)
+(use-package cl-lib
+  :ensure t)
 
-(add-to-list 'auto-mode-alist
-             '("\\(?:\\.rb\\|ru\\|rake\\|thor\\|jbuilder\\|gemspec\\|podspec\\|/\\(?:Gem\\|Rake\\|Cap\\|Thor\\|Vagrant\\|Guard\\|Pod\\)file\\)\\'" . enh-ruby-mode))
-(require 'robe)
-(add-hook 'ruby-mode-hook 'robe-mode)
-(add-hook 'robe-mode-hook 'ac-robe-setup)
+(use-package slime
+  :ensure t
+  :config
+  (slime-setup '(slime-fancy slime-repl slime-fuzzy)))
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file)
+(use-package smartparens
+  :ensure t
+  :init
+  (add-hook 'lisp-mode-hook #'smartparens-mode)
+  (add-hook 'emacs-lisp-mode-hook #'smartparens-mode)
+  (add-hook 'slime-repl-mode-hook #'smartparens-mode)
+  (show-smartparens-global-mode +1)
+  :config
+  (require 'smartparens-config)
+
+  (use-package evil-cleverparens
+    :ensure t
+    :init
+    (add-hook 'smartparens-enabled-hook #'evil-cleverparens-mode)
+    (setq evil-cleverparens-use-additional-movement-keys nil)))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+
+(use-package smex
+  :ensure t
+  :init (smex-initialize)
+  :bind ("M-x" . smex)
+  :config
+  ;;(define-key evil-motion-state-map ":" 'smex)
+  (define-key evil-motion-state-map ";" 'evil-ex))
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package key-chord
+  :ensure t
+  :config
+  (key-chord-mode 1)
+  (key-chord-define evil-insert-state-map "jj" 'evil-normal-state))
+
+(use-package fill-column-indicator
+  :ensure t
+  :config
+  (setq fci-rule-column 90)
+  (setq fci-rule-width 1)
+  (setq fci-rule-color "grey10")
+  (add-hook 'after-change-major-mode-hook 'fci-mode))
