@@ -2,76 +2,94 @@ set nocompatible               " be iMproved
 
 filetype off                   " required!
 
-set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+call plug#begin('~/.vim/plugged')
 
-if dein#load_state('~/.vim/bundles')
-  call dein#begin('~/.vim/bundles')
+"" Python
+Plug 'fs111/pydoc.vim'
 
-  " Let dein manage dein
-  call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
+"" Lisp
+"Plug 'kovisoft/slimv'
 
-  "" Python
-  call dein#add('fs111/pydoc.vim')
+"" Clojure
+"Plug 'guns/vim-clojure-static'
+"Plug 'tpope/vim-fireplace'
+Plug 'jbnicolai/rainbow_parentheses.vim'
+"Plug 'guns/vim-clojure-highlight'
 
-  "" Lisp
-  call dein#add('kovisoft/slimv')
+"" Ruby
+Plug 'vim-ruby/vim-ruby'
 
-  "" Clojure
-  call dein#add('guns/vim-clojure-static')
-  call dein#add('tpope/vim-fireplace')
-  call dein#add('jbnicolai/rainbow_parentheses.vim')
-  call dein#add('guns/vim-clojure-highlight')
+"" Go
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode', {'rtp': 'vim/'}
 
-  "" Ruby
-  call dein#add('vim-ruby/vim-ruby')
+"" Git
+"" Show what has changed in the sidebar + ability to stage, revert hunks
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
 
-  "" Go
-  call dein#add('fatih/vim-go')
+"" HTML
+Plug 'gregsexton/MatchTag'
+Plug 'slim-template/vim-slim'
 
-  "" Git
-  "" Show what has changed in the sidebar + ability to stage, revert hunks
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('tpope/vim-fugitive')
+"" XML
+Plug 'actionshrimp/vim-xpath'
 
-  "" HTML
-  call dein#add('gregsexton/MatchTag')
+"" css
+Plug 'cakebaker/scss-syntax.vim'
 
-  "" css
-  call dein#add('cakebaker/scss-syntax.vim')
+Plug 'ekalinin/Dockerfile.vim'
 
-  call dein#add('AndrewRadev/splitjoin.vim')
-  call dein#add('scrooloose/syntastic')
-  call dein#add('tpope/vim-surround')
-  call dein#add('jiangmiao/auto-pairs')
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-surround'
+Plug 'jiangmiao/auto-pairs'
 
-  call dein#add('Lokaltog/vim-easymotion')
+"" Navigation
+Plug 'scrooloose/nerdtree'
+Plug 'lifepillar/vim-mucomplete'
 
-  "" Navigation
-  call dein#add('jeetsukumaran/vim-buffergator')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('ervandew/supertab')
-  call dein#add('ctrlpvim/ctrlp.vim')
-  call dein#add('scrooloose/nerdcommenter')
+"" Search
+Plug 'wincent/ferret'
 
-  "" Search
-  call dein#add('https://github.com/mileszs/ack.vim.git')
+"" GPG
+Plug 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
 
-  "" GPG
-  call dein#add('https://gitorious.org/vim-gnupg/vim-gnupg.git')
+" cursor with iterm2
+Plug 'sjl/vitality.vim'
 
-  " cursor with iterm2
-  call dein#add('sjl/vitality.vim')
+Plug 'Shougo/denite.nvim'
+Plug 'zeis/vim-kolor'
 
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
+" Initialize plugin system
+call plug#end()
 
+set completeopt+=menuone
+inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
+inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
+inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
+
+set completeopt+=noselect
+
+let g:rcsv_colorpairs = [
+    \ ['darkred',     'darkred'],
+    \ ['darkblue',    'darkblue'],
+    \ ['darkgreen',   'darkgreen'],
+    \ ['darkmagenta', 'darkmagenta'],
+    \ ['NONE',        'NONE'],
+    \ ]
+
+let &runtimepath.=',~/.vim/plugged/ale'
+let g:ale_lint_on_text_changed = 'never'
 filetype plugin indent on
+silent! helptags ALL
 
 " set 256 colors
-set t_Co=256
-colorscheme wombat256
+"set t_Co=256
+let g:kolor_underlined=1
+let g:kolor_alternative_matchparen=1
+
+colorscheme kolor
 syntax on
 
 set noantialias
@@ -79,7 +97,7 @@ set noantialias
 " to beep every few keystrokes
 set vb
 if has("gui_running")
-    set guifont=fixed-6x13:h13
+    set guifont=fixed-7x14:h14
     set linespace=0
 
     " remove menu and toolbar
@@ -130,6 +148,20 @@ nnoremap <leader>dq viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>q viw<esc>a'<esc>hbi'<esc>lel
 nnoremap <leader>q= viw<esc>a %><esc>hbi<%= <esc>lel
 nnoremap <leader>q% viw<esc>a %}<esc>hbi{% <esc>lel
+
+
+nnoremap <silent> ,g :<C-u>Denite grep<CR>
+nnoremap <silent> <C-p> :<C-u>Denite file_rec<CR>
+" Pt command on grep source
+call denite#custom#var('grep', 'command', ['pt'])
+call denite#custom#var('grep', 'default_opts',
+            \ ['--nogroup', '--nocolor', '--smart-case'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+
 
 set relativenumber
 set number
@@ -223,6 +255,7 @@ au FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
 au Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent
 au BufRead *.ejs set filetype=html
 au BufRead *.erb set filetype=html
+au BufNewFile,BufRead *.slim setlocal filetype=slim
 
 au FileType go set expandtab!
 au FileType go set listchars=tab:\ \ 
@@ -236,10 +269,42 @@ au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
 " clojure
 autocmd VimEnter *       RainbowParenthesesToggle
-autocmd Syntax   clojure RainbowParenthesesLoadRound
-autocmd Syntax   clojure RainbowParenthesesLoadSquare
-autocmd Syntax   clojure RainbowParenthesesLoadBraces
+autocmd Syntax   * RainbowParenthesesLoadRound
+autocmd Syntax   * RainbowParenthesesLoadSquare
+autocmd Syntax   * RainbowParenthesesLoadBraces
 
 " go
 au FileType go nmap <leader>r <Plug>(go-run)
 autocmd VimEnter *       RainbowParenthesesToggle
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
