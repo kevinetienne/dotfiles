@@ -21,7 +21,7 @@ Plug 'vim-ruby/vim-ruby'
 
 "" Go
 Plug 'fatih/vim-go'
-Plug 'nsf/gocode', {'rtp': 'vim/'}
+Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
 
 "" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
@@ -35,6 +35,7 @@ Plug 'slim-template/vim-slim'
 "" XML
 Plug 'actionshrimp/vim-xpath'
 
+Plug 'stephpy/vim-yaml'
 "" css
 Plug 'cakebaker/scss-syntax.vim'
 
@@ -43,11 +44,11 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-surround'
+Plug 'machakann/vim-sandwich'
 Plug 'jiangmiao/auto-pairs'
 
 "" Navigation
 Plug 'scrooloose/nerdtree'
-Plug 'lifepillar/vim-mucomplete'
 
 "" Search
 Plug 'wincent/ferret'
@@ -64,13 +65,6 @@ Plug 'zeis/vim-kolor'
 " Initialize plugin system
 call plug#end()
 
-set completeopt+=menuone
-inoremap <expr> <c-e> mucomplete#popup_exit("\<c-e>")
-inoremap <expr> <c-y> mucomplete#popup_exit("\<c-y>")
-inoremap <expr>  <cr> mucomplete#popup_exit("\<cr>")
-
-set completeopt+=noselect
-
 let g:rcsv_colorpairs = [
     \ ['darkred',     'darkred'],
     \ ['darkblue',    'darkblue'],
@@ -79,26 +73,23 @@ let g:rcsv_colorpairs = [
     \ ['NONE',        'NONE'],
     \ ]
 
-let &runtimepath.=',~/.vim/plugged/ale'
-let g:ale_lint_on_text_changed = 'never'
 filetype plugin indent on
 silent! helptags ALL
 
-" set 256 colors
-"set t_Co=256
-let g:kolor_underlined=1
-let g:kolor_alternative_matchparen=1
+let g:ale_fix_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
 
+let g:kolor_underlined=1
+
+set antialias
 colorscheme kolor
 syntax on
 
-set noantialias
 " on macvim there's no visual bell and avoid
 " to beep every few keystrokes
 set vb
 if has("gui_running")
-    set guifont=fixed-7x14:h14
-    set linespace=0
+    set guifont=Roboto\ Mono\ Light:h12
 
     " remove menu and toolbar
     set guioptions-=m
@@ -276,35 +267,17 @@ autocmd Syntax   * RainbowParenthesesLoadBraces
 " go
 au FileType go nmap <leader>r <Plug>(go-run)
 autocmd VimEnter *       RainbowParenthesesToggle
+
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_operators = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
 let g:go_highlight_build_constraints = 1
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_fmt_command = "goimports"
+let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
+let g:ale_go_gometalinter_options = "--fast"
