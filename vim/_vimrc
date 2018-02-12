@@ -7,14 +7,8 @@ call plug#begin('~/.vim/plugged')
 "" Python
 Plug 'fs111/pydoc.vim'
 
-"" Lisp
-"Plug 'kovisoft/slimv'
-
 "" Clojure
-"Plug 'guns/vim-clojure-static'
-"Plug 'tpope/vim-fireplace'
 Plug 'jbnicolai/rainbow_parentheses.vim'
-"Plug 'guns/vim-clojure-highlight'
 
 "" Ruby
 Plug 'vim-ruby/vim-ruby'
@@ -62,16 +56,10 @@ Plug 'sjl/vitality.vim'
 Plug 'Shougo/denite.nvim'
 Plug 'zeis/vim-kolor'
 
+Plug 'arcticicestudio/nord-vim'
+
 " Initialize plugin system
 call plug#end()
-
-let g:rcsv_colorpairs = [
-    \ ['darkred',     'darkred'],
-    \ ['darkblue',    'darkblue'],
-    \ ['darkgreen',   'darkgreen'],
-    \ ['darkmagenta', 'darkmagenta'],
-    \ ['NONE',        'NONE'],
-    \ ]
 
 filetype plugin indent on
 silent! helptags ALL
@@ -79,10 +67,7 @@ silent! helptags ALL
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 
-let g:kolor_underlined=1
-
 set antialias
-colorscheme kolor
 syntax on
 
 " on macvim there's no visual bell and avoid
@@ -107,6 +92,11 @@ if &term =~ '256color'
   " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
   set t_ut=
 endif
+
+set termguicolors
+let g:nord_uniform_status_lines = 1
+let g:nord_comment_brightness = 12
+colorscheme nord
 
 nnoremap <SPACE> <Nop>
 let mapleader=" "
@@ -173,6 +163,9 @@ set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
 set nofoldenable
 set foldlevel=99            " don't fold by default
+set completeopt=menu,menuone
+set splitbelow
+set splitright
 "some stuff to get the mouse going in term
 set mouse=a
 
@@ -203,8 +196,6 @@ set statusline+=\ %P    "percent through file
 set listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set fillchars=diff:⣿,vert:│
 set list
-let &colorcolumn=join(range(90,999),",")
-let &colorcolumn="80,".join(range(120,999),",")
 
 let loaded_matchparen = 1
 let g:syntastic_python_checkers=['flake8', 'pep8']
@@ -249,6 +240,7 @@ au BufRead *.erb set filetype=html
 au BufNewFile,BufRead *.slim setlocal filetype=slim
 
 au FileType go set expandtab!
+au FileType go setlocal omnifunc=go#complete#Complete
 au FileType go set listchars=tab:\ \ 
 au FileType go hi SpecialKey guibg=NONE
 
@@ -272,6 +264,8 @@ let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
 let g:go_highlight_types = 1
 let g:go_highlight_fields = 1
 let g:go_highlight_build_constraints = 1
@@ -279,5 +273,10 @@ let g:go_highlight_generate_tags = 1
 let g:go_highlight_variable_declarations = 1
 let g:go_highlight_variable_assignments = 1
 let g:go_fmt_command = "goimports"
+let g:go_info_mode = 'guru'
+
 let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
 let g:ale_go_gometalinter_options = "--fast"
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
