@@ -1,9 +1,31 @@
-ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="mh"
-ZSH_THEME="bunnyruni"
-plugins=(docker docker-compose git git-extras git-flow git-hubflow git-remote-branch python safe-paste)
+bindkey -e
+bindkey    "^[[3~"          delete-char
+bindkey    "^[3;5~"         delete-char
+autoload -U edit-command-line
 
-source $ZSH/oh-my-zsh.sh
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+HISTFILE="${HOME}/.zshhistory"
+SAVEHIST=50000
+HISTSIZE=50000
+
+zplug "plugins/git", from:oh-my-zsh, if:"which git"
+zplug "plugins/tmux", from:oh-my-zsh, if:"which tmux"
+
+zplug "plugins/docker",            from:oh-my-zsh
+zplug "plugins/docker-compose",    from:oh-my-zsh
+zplug "plugins/command-not-found", from:oh-my-zsh
+zplug "plugins/common-aliases",    from:oh-my-zsh
+zplug "plugins/compleat",          from:oh-my-zsh
+zplug "plugins/git-extras", from:oh-my-zsh
+zplug "robbyrussell/oh-my-zsh", use:lib/history.zsh
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-history-substring-search"
+zplug "yous/lime"
+
+zplug load
 
 # User configuration
 
@@ -58,24 +80,16 @@ export EDITOR='vim'
 export TERM=xterm-256color tmux
 
 # Compilation flags
-export CPPFLAGS=-Qunused-arguments
-export CFLAGS=-Qunused-arguments
+#export CPPFLAGS=-Qunused-arguments
+#export CFLAGS=-Qunused-arguments
+export CPPFLAGS=-I/usr/local/opt/openssl/include
+export LDFLAGS=-L/usr/local/opt/openssl/lib
 
 export GOPATH="$HOME/go"
 export GOBIN="$HOME/go/bin"
 PATH=$PATH:$GOBIN
-export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:$HOME/go/bin
-
-# eval "$(rbenv init -)"
-
-# added by travis gem
-[ -f /Users/kevin/.travis/travis.sh ] && source /Users/kevin/.travis/travis.sh
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
 
 eval "$(direnv hook zsh)"
 eval "$(scmpuff init -s)"
