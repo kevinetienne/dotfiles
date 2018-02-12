@@ -1,30 +1,20 @@
-.DS_Store
-*.swp
-*.swo
-*.pyc
-*.egg-info
-*.sublime-workspace
-*.sublime-project
-.idea/
+# mac
+*.DS_Store
+
+# editor
+*.sw*
+.vscode
+
+# repo
 .svn/
 .hg/
-.hgignore
-.project/
-local_settings.py
-.sass-cache
-.venv
-.codeintel
-dist
-source
-data.db
-db.sqlite
-.env
-build
-node_modules/
-static/bower/
-Gemfile.lock
-*dump
-*sql
+
+
+# python
+*.pyc
+*.egg-info
 .coverage
-client_media/
-bower-packages/
+
+# ruby
+.pryrc
+.pry_history
