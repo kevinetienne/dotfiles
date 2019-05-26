@@ -223,21 +223,25 @@ set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
 augroup python
+  au!
   au FileType python set omnifunc=pythoncomplete#Complete
   au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
   au BufRead python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
 augroup END
 
 augroup ruby
+  au!
   au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
 augroup END
 
 augroup js
+  au!
   au FileType javascript setlocal expandtab shiftwidth=3 tabstop=2 softtabstop=2
   au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
 augroup html
+  au!
   au FileType jade set omnifunc=javascriptcomplete#CompleteJS
   au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
   au FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -253,17 +257,20 @@ augroup html
 augroup END
 
 augroup golang
+  au!
   au FileType go set expandtab!
   au FileType go setlocal omnifunc=go#complete#Complete
   au FileType go set listchars=tab:\ \ 
   au FileType go hi SpecialKey guibg=NONE
   au FileType go nnoremap <leader>r <Plug>(go-run)
-augroup js
+augroup END
 
 augroup git
+  au!
   au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 augroup END
 
 augroup lisp
+  au!
   au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 augroup END
