@@ -141,6 +141,27 @@ call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_function_arguments = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_fmt_command = "goimports"
+let g:go_info_mode = 'guru'
+
+let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
+let g:ale_go_gometalinter_options = "--fast"
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_save = 1
+
 
 set number
 " Moving Around/Editing
@@ -201,63 +222,48 @@ set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
 
-" python
-au FileType python set omnifunc=pythoncomplete#Complete
-au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
-au BufRead *.py set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
+augroup python
+  au FileType python set omnifunc=pythoncomplete#Complete
+  au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+  au BufRead python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
+augroup END
 
-" Ruby
-au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+augroup ruby
+  au Filetype ruby setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent cinwords=if,elsif,else,unless,for,while,begin,rescue,def,class,module
+augroup END
 
-" JavaScript
-au FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+augroup js
+  au FileType javascript setlocal expandtab shiftwidth=3 tabstop=2 softtabstop=2
+  au FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+augroup END
 
-" html/css
-au FileType jade set omnifunc=javascriptcomplete#CompleteJS
-au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
-au FileType html set omnifunc=htmlcomplete#CompleteTags
-au FileType html setlocal expandtab shiftwidth=2 softtabstop=2
-au FileType css set omnifunc=csscomplete#CompleteCSS
-au FileType css setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
-au FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
-au FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
-au Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent
-au BufRead *.ejs set filetype=html
-au BufRead *.erb set filetype=html
-au BufNewFile,BufRead *.slim setlocal filetype=slim
+augroup html
+  au FileType jade set omnifunc=javascriptcomplete#CompleteJS
+  au FileType jade setlocal expandtab shiftwidth=2 softtabstop=2
+  au FileType html set omnifunc=htmlcomplete#CompleteTags
+  au FileType html setlocal expandtab shiftwidth=2 softtabstop=2
+  au FileType css set omnifunc=csscomplete#CompleteCSS
+  au FileType css setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+  au FileType html noremap <buffer> <c-f> :call HtmlBeautify()<cr>
+  au FileType css noremap <buffer> <c-f> :call CSSBeautify()<cr>
+  au Filetype scss setlocal tabstop=2 softtabstop=2 shiftwidth=2 smartindent
+  au BufRead *.ejs set filetype=html
+  au BufRead *.erb set filetype=html
+  au BufNewFile,BufRead *.slim setlocal filetype=slim
+augroup END
 
-au FileType go set expandtab!
-au FileType go setlocal omnifunc=go#complete#Complete
-au FileType go set listchars=tab:\ \ 
-au FileType go hi SpecialKey guibg=NONE
+augroup golang
+  au FileType go set expandtab!
+  au FileType go setlocal omnifunc=go#complete#Complete
+  au FileType go set listchars=tab:\ \ 
+  au FileType go hi SpecialKey guibg=NONE
+  au FileType go nnoremap <leader>r <Plug>(go-run)
+augroup js
 
-" github
-au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+augroup git
+  au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+augroup END
 
-" LISP
-au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-
-" go
-au FileType go nmap <leader>r <Plug>(go-run)
-
-let g:go_highlight_extra_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_function_arguments = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_fmt_command = "goimports"
-let g:go_info_mode = 'guru'
-
-let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
-let g:ale_go_gometalinter_options = "--fast"
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
+augroup lisp
+  au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+augroup END
