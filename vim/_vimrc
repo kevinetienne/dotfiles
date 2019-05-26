@@ -4,17 +4,16 @@ filetype off                   " required!
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'luochen1990/rainbow'
+
 "" Python
 Plug 'fs111/pydoc.vim'
-
-"" Clojure
-Plug 'jbnicolai/rainbow_parentheses.vim'
 
 "" Ruby
 Plug 'vim-ruby/vim-ruby'
 
 "" Go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
 
 "" Git
@@ -24,7 +23,6 @@ Plug 'tpope/vim-fugitive'
 
 "" HTML
 Plug 'gregsexton/MatchTag'
-Plug 'slim-template/vim-slim'
 
 "" XML
 Plug 'actionshrimp/vim-xpath'
@@ -34,6 +32,8 @@ Plug 'stephpy/vim-yaml'
 Plug 'cakebaker/scss-syntax.vim'
 
 Plug 'ekalinin/Dockerfile.vim'
+
+Plug 'kchmck/vim-coffee-script'
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'w0rp/ale'
@@ -48,15 +48,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'wincent/ferret'
 
 "" GPG
-Plug 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
+""Plug 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
 
 " cursor with iterm2
 Plug 'sjl/vitality.vim'
 
 Plug 'Shougo/denite.nvim'
-Plug 'zeis/vim-kolor'
 
-Plug 'arcticicestudio/nord-vim'
+Plug 'mhartington/oceanic-next'
 
 " Initialize plugin system
 call plug#end()
@@ -64,11 +63,10 @@ call plug#end()
 filetype plugin indent on
 silent! helptags ALL
 
-let g:ale_fix_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-
 set antialias
 syntax on
+
+let mapleader=" "
 
 " on macvim there's no visual bell and avoid
 " to beep every few keystrokes
@@ -86,24 +84,26 @@ if has("gui_running")
     set guioptions-=R
 endif
 
-if &term =~ '256color'
-  " disable Background Color Erase (BCE) so that color schemes
-  " render properly when inside 256-color tmux and GNU screen.
-  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-  set t_ut=
-endif
+"if &term =~ '256color'
+"  " disable Background Color Erase (BCE) so that color schemes
+"  " render properly when inside 256-color tmux and GNU screen.
+"  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+"  set t_ut=
+"endif
 
 set termguicolors
-let g:nord_uniform_status_lines = 1
-let g:nord_comment_brightness = 12
-colorscheme nord
-
-nnoremap <SPACE> <Nop>
-let mapleader=" "
+"let g:oceanic_next_terminal_bold = 1
+"let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
+hi jsonTrailingCommaError gui=undercurl guisp=red ctermbg=52 term=undercurl cterm=undercurl
 
 inoremap jj <ESC>
 inoremap jk <ESC>
 nnoremap ; :
+nnoremap <Left> <nop>
+nnoremap <Right> <nop>
+nnoremap <Up> <nop>
+nnoremap <Down> <nop>
 
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -120,10 +120,9 @@ vnoremap // y/<C-R>"<CR>
 " create taglist
 noremap <leader>gt :!ctags --extra=+f --exclude=.git --exclude=log -R * `rvm gemdir`/gems/*<CR><CR>
 " edit vimrc
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " source vimrc
 nnoremap <leader>sv :so $MYVIMRC<CR>
-noremap <leader>aa :Ack "<C-R><C-W>"<CR>
 
 nnoremap <leader>dq viw<esc>a"<esc>hbi"<esc>lel
 nnoremap <leader>q viw<esc>a'<esc>hbi'<esc>lel
@@ -143,8 +142,6 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
 
-
-set relativenumber
 set number
 " Moving Around/Editing
 set cursorline              " have a line indicate the cursor location
@@ -197,21 +194,12 @@ set listchars=tab:❘-,trail:·,extends:»,precedes:«,nbsp:×
 set fillchars=diff:⣿,vert:│
 set list
 
-let loaded_matchparen = 1
-let g:syntastic_python_checkers=['flake8', 'pep8']
-let g:syntastic_ruby_checkers = ['rubocop', 'reek', 'mri']
 " Searching and Patterns
 set ignorecase              " Default to using case insensitive searches,
 set smartcase               " unless uppercase letters are used in the regex.
 set smarttab                " Handle tabs more intelligently
 set hlsearch                " Highlight searches by default.
 set incsearch               " Incrementally search while typing a /regex
-
-let g:ackprg = 'ag --nogroup --nocolor --column'
-
-" nerdtree
-let NERDTreeShowHidden=1
-let NERDTreeIgnore = ['\.pyc$', '\.sw[o,p]$', '__pycache__', '.git']
 
 " python
 au FileType python set omnifunc=pythoncomplete#Complete
@@ -250,15 +238,8 @@ au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
 " LISP
 au FileType lisp setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 
-" clojure
-autocmd VimEnter *       RainbowParenthesesToggle
-autocmd Syntax   * RainbowParenthesesLoadRound
-autocmd Syntax   * RainbowParenthesesLoadSquare
-autocmd Syntax   * RainbowParenthesesLoadBraces
-
 " go
 au FileType go nmap <leader>r <Plug>(go-run)
-autocmd VimEnter *       RainbowParenthesesToggle
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
