@@ -156,11 +156,11 @@ let g:go_highlight_variable_assignments = 1
 let g:go_fmt_command = "goimports"
 let g:go_info_mode = 'guru'
 
-let g:ale_linters = {'go': ['gometalinter', 'gofmt', 'go build', 'gosimple']}
-let g:ale_go_gometalinter_options = "--fast"
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_save = 1
+let g:ale_linters = {'go': ['golangci-lint', 'gofmt', 'go build', 'gosimple']}
+let g:ale_go_golangci_lint_options = "--fast"
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_enter = 0
+" let g:ale_lint_on_save = 1
 
 
 set number
@@ -179,7 +179,6 @@ set softtabstop=4           " <BS> over an autoindent deletes both spaces.
 set expandtab               " Use spaces, not tabs, for autoindent/tab key.
 set shiftround              " rounds indent to a multiple of shiftwidth
 set matchpairs+=<:>         " show matching <> (html mainly) as well
-set nofoldenable
 set foldlevel=99            " don't fold by default
 set completeopt=menu,menuone
 set splitbelow
