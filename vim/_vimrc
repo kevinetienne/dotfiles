@@ -70,9 +70,9 @@ let mapleader=" "
 
 " on macvim there's no visual bell and avoid
 " to beep every few keystrokes
-set vb
+set novisualbell
 if has("gui_running")
-    set guifont=Roboto\ Mono\ Light:h12
+    " set guifont=Roboto\ Mono\ Light:h12
 
     " remove menu and toolbar
     set guioptions-=m
