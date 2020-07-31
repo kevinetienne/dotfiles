@@ -1,43 +1,51 @@
+Xft.dpi: 192
+xterm*selectToClipboard: true
+
 xterm*foreground:  #dddddd
 xterm*background:  #212121
-xterm*cursorColor: #cd5c5c
-xterm*scrollBar: false
-xterm*faceName: Monospace
-xterm*faceSize: 9
-xterm*visualBell: false
+!xterm*cursorColor: #cd5c5c
+xterm*cursorColor: #fac863
 !
+xterm*scrollBar: false
+!xterm*faceName: Monospace
+!xterm*faceName: Roboto Mono
+!xterm*faceName: APL385
+xterm*faceName: mononoki
+xterm*faceSize: 10
+xterm*visualBell: false
+
 ! Black
 xterm*color0:      #151515
 xterm*color8:      #505050
-!
+
 ! Red
 xterm*color1:      #ac4142
 xterm*color9:      #ac4142
-!
+
 ! Green
 xterm*color2:      #7e8e50
 xterm*color10:     #7e8e50
-!
+
 ! Yellow
 xterm*color3:      #e5b567
 xterm*color11:     #e5b567
-!
+
 ! Blue
 xterm*color4:      #6c99bb
 xterm*color12:     #6c99bb
-!
+
 ! Magenta
 xterm*color5:      #9f4e85
 xterm*color13:     #9f4e85
-!
+
 ! Cyan
 xterm*color6:      #7dd6cf
 xterm*color14:     #7dd6cf
-!
+
 ! White
 xterm*color7:      #d0d0d0
 xterm*color15:     #f5f5f5
-!
+
 ! Bold, Italic, Underline
 xterm*colorBD:     #d0d0d0
 !xterm*colorIT:
