@@ -5,17 +5,12 @@ filetype off                   " required!
 call plug#begin('~/.vim/plugged')
 
 Plug 'luochen1990/rainbow'
+Plug 'liuchengxu/vista.vim'
 
 "" Python
-Plug 'fs111/pydoc.vim'
-
-"" Ruby
-Plug 'vim-ruby/vim-ruby'
-
-"" Go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'nsf/gocode', {'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh'}
-
+"Plug 'fs111/pydoc.vim'
+Plug 'davidhalter/jedi-vim'
+"
 "" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
 Plug 'airblade/vim-gitgutter'
@@ -24,16 +19,11 @@ Plug 'tpope/vim-fugitive'
 "" HTML
 Plug 'gregsexton/MatchTag'
 
-"" XML
-Plug 'actionshrimp/vim-xpath'
-
 Plug 'stephpy/vim-yaml'
 "" css
 Plug 'cakebaker/scss-syntax.vim'
 
 Plug 'ekalinin/Dockerfile.vim'
-
-Plug 'kchmck/vim-coffee-script'
 
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'w0rp/ale'
@@ -44,16 +34,9 @@ Plug 'jiangmiao/auto-pairs'
 "" Navigation
 Plug 'scrooloose/nerdtree'
 
-"" Search
-Plug 'wincent/ferret'
-
-"" GPG
-""Plug 'https://gitorious.org/vim-gnupg/vim-gnupg.git'
-
-" cursor with iterm2
-Plug 'sjl/vitality.vim'
-
 Plug 'Shougo/denite.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 
 Plug 'mhartington/oceanic-next'
 
@@ -68,11 +51,9 @@ syntax on
 
 let mapleader=" "
 
-" on macvim there's no visual bell and avoid
-" to beep every few keystrokes
-set novisualbell
+set noerrorbells visualbell t_vb=
 if has("gui_running")
-    " set guifont=Roboto\ Mono\ Light:h12
+    "set guifont=Monospace:h12
 
     " remove menu and toolbar
     set guioptions-=m
@@ -84,17 +65,17 @@ if has("gui_running")
     set guioptions-=R
 endif
 
-"if &term =~ '256color'
-"  " disable Background Color Erase (BCE) so that color schemes
-"  " render properly when inside 256-color tmux and GNU screen.
-"  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-"  set t_ut=
-"endif
+if &term =~ '256color'
+  " disable Background Color Erase (BCE) so that color schemes
+  " render properly when inside 256-color tmux and GNU screen.
+  " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+endif
 
 " Enable true color 启用终端24位色
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-set termguicolors
+" let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+" let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+" set termguicolors
 
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -138,8 +119,27 @@ nnoremap <leader>q= viw<esc>a %><esc>hbi<%= <esc>lel
 nnoremap <leader>q% viw<esc>a %}<esc>hbi{% <esc>lel
 
 
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction
+
 nnoremap <silent> ,g :<C-u>Denite grep<CR>
-nnoremap <silent> <C-p> :<C-u>Denite file_rec<CR>
+nnoremap <silent> ,b :<C-u>Denite buffer<CR>
+nnoremap <silent> <C-p> :<C-u>Denite file/rec<CR>
+
 " Pt command on grep source
 call denite#custom#var('grep', 'command', ['pt'])
 call denite#custom#var('grep', 'default_opts',
@@ -148,6 +148,12 @@ call denite#custom#var('grep', 'recursive_opts', [])
 call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
+
+let ignore=&wildignore .
+        \ ',*.pyc,.git,.hg,.svn,venv,*.sw[o|p]'
+call denite#custom#var('file/rec', 'command',
+    \ ['scantree.py', '--path', ':directory',
+    \  '--ignore', ignore])
 
 let g:go_highlight_extra_types = 1
 let g:go_highlight_operators = 1
@@ -164,11 +170,17 @@ let g:go_highlight_variable_assignments = 1
 let g:go_fmt_command = "goimports"
 let g:go_info_mode = 'guru'
 
-let g:ale_linters = {'go': ['golangci-lint', 'gofmt', 'go build', 'gosimple']}
+let g:ale_linters = {
+\   'go': ['golangci-lint', 'gofmt', 'go build', 'gosimple'],
+\   'python': ['flake8', 'pylint'],
+\   'javascript': ['prettier', 'eslint'],
+\}
+let g:ale_fixers = {'python': ['yapf']}
 let g:ale_go_golangci_lint_options = "--fast"
 " let g:ale_lint_on_text_changed = 'never'
 " let g:ale_lint_on_enter = 0
 " let g:ale_lint_on_save = 1
+let g:jedi#force_py_version=3
 
 
 set number
@@ -231,7 +243,7 @@ set incsearch               " Incrementally search while typing a /regex
 
 augroup python
   au!
-  au FileType python set omnifunc=pythoncomplete#Complete
+  "au FileType python set omnifunc=pythoncomplete#Complete
   au FileType python setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
   au BufRead python set efm=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\
 augroup END
