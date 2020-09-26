@@ -12,7 +12,6 @@ zle -N down-line-or-beginning-search
 bindkey "^[[A" up-line-or-beginning-search # Up
 bindkey "^[[B" down-line-or-beginning-search # Down
 
-unsetopt BEEP
 
 export ZPLUG_HOME=~/src/github.com/zplug/zplug
 source $ZPLUG_HOME/init.zsh
@@ -97,3 +96,4 @@ eval "$(pyenv virtualenv-init -)"
 
 #export PLASMA_USE_QT_SCALING=1
 #export QT_SCALE_FACTOR=2
+unsetopt BEEP
