@@ -10,8 +10,10 @@ Plug 'liuchengxu/vista.vim'
 "" Python
 "Plug 'fs111/pydoc.vim'
 Plug 'davidhalter/jedi-vim'
-"
-"" Git
+
+Plug 'fatih/vim-go'
+
+" Git
 "" Show what has changed in the sidebar + ability to stage, revert hunks
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -278,10 +280,9 @@ augroup END
 augroup golang
   au!
   au FileType go set expandtab!
-  au FileType go setlocal omnifunc=go#complete#Complete
+  "au FileType go setlocal omnifunc=go#complete#Complete
   au FileType go set listchars=tab:\ \ 
   au FileType go hi SpecialKey guibg=NONE
-  au FileType go nnoremap <leader>r <Plug>(go-run)
 augroup END
 
 augroup git
