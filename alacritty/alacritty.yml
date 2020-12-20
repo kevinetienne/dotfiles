@@ -1,3 +1,5 @@
+background_opacity: 1.0
+
 # Font configuration (changes require restart)
 font:
   # The normal (roman) font face to use.
@@ -7,19 +9,20 @@ font:
   # The bold font face
   bold:
     family: mononoki
-    # Style can be specified to pick a specific face.
-    # style: Bold
+  #  # Style can be specified to pick a specific face.
+  #  # style: Bold
 
   # The italic font face
   italic:
     family: mononoki
-    # Style can be specified to pick a specific face.
-    # style: Italic
-  size: 20
+  #  # Style can be specified to pick a specific face.
+  #  # style: Italic
+  size: 12
 
 colors:
   primary:
     background: '#212121'
+    #background: '#000000'
     foreground: '#dddddd'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
@@ -49,3 +52,8 @@ colors:
     magenta: '#9f4e85'
     cyan:    '#7dd6cf'
     white:   '#f5f5f5'
+window:
+  decorations: none
+  dimensions:
+    columns: 120
+    lines: 40
