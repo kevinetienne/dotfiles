@@ -1,23 +1,30 @@
-background_opacity: 1.0
 
 # Font configuration (changes require restart)
 font:
   # The normal (roman) font face to use.
   normal:
-    family: mononoki
+    # family: mononoki
+    # family: InconsolataGo Nerd Font Mono
+    # family: mononoki Nerd Font
+    family: RobotoMono Nerd Font
 
   # The bold font face
   bold:
-    family: mononoki
+    family: RobotoMono Nerd Font
+    #family: mononoki Nerd Font
   #  # Style can be specified to pick a specific face.
   #  # style: Bold
 
   # The italic font face
   italic:
-    family: mononoki
+    family: RobotoMono Nerd Font
+    #family: mononoki Nerd Font
   #  # Style can be specified to pick a specific face.
   #  # style: Italic
   size: 12
+
+  offset:
+    x: -1
 
 colors:
   primary:
@@ -57,3 +64,4 @@ window:
   dimensions:
     columns: 120
     lines: 40
+  opacity: 1.0
